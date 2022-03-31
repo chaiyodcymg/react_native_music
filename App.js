@@ -20,6 +20,7 @@ import {
 import Login from './screens/Login';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import Played from './screens/Played';
 import Home from './screens/Home';
 import ListMusic from './screens/ListMusic';
 
@@ -34,14 +35,15 @@ const globalScreenOptions = {
 }
 export default function App() {
   
-
+ 
   return (
  
     <NavigationContainer >
       <Stack.Navigator >
         <Stack.Screen options={{ title: 'เข้าสู่ระบบ' }} name='Login' component={Login} />
-        <Stack.Screen options={{  headerShown: false }} name='Home' component={Home} />
-        <Stack.Screen options={{  headerShown: false }} name='ListMusic' component={ListMusic} />
+        <Stack.Screen options={{ headerShown: false }} name='Played' component={Played} />
+        <Stack.Screen options={{ headerShown: false }} name='Home' component={Home} />
+        <Stack.Screen options={{ headerShown: false }} name='ListMusic' component={ListMusic} />
       </Stack.Navigator>
 
     </NavigationContainer>

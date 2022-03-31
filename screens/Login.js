@@ -29,7 +29,7 @@ const Login = ({ navigation }) => {
         onAuthStateChanged(auth, (authUser) => {
             // console.log(authUser);
             if (authUser) {
-                navigation.replace('ListMusic');
+                navigation.replace('Home');
             }
         });
 
@@ -39,7 +39,7 @@ const Login = ({ navigation }) => {
         signInWithEmailAndPassword(auth, email, password)
             .then(() => {
                
-                navigation.replace('ListMusic');
+                navigation.replace('Home');
              
             })
             .catch((error) => {

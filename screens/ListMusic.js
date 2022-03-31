@@ -10,89 +10,46 @@ import TrackPlayer, {
     State, usePlaybackState, useProgress
     , useTrackPlayerEvents, getQueue
 } from 'react-native-track-player';
-import { Tracks } from "../list_music.js"
-import Slider from '@react-native-community/slider';
+import { Tracks, Tracks2 } from "../list_music.js"
+
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { ListItem, Avatar } from 'react-native-elements';
+
 const ListMusic = ({ navigation }) => {
-    const auth = getAuth();
-    const SignOut = () => {
-        signOut(auth).then(() => {
-            TrackPlayer.stop();
-            navigation.replace('Login');
-        }).catch((error) => {
-            alert(error.message)
-        });
-    }
     const renderItem = ({ item }) => {
         return (
 
+            <TouchableOpacity onPress={() => navigation.navigate('Played')}>
+                <StatusBar barStyle="light-content" />
+                <View style={{ flexDirection: "row", alignItems: "center", marginVertical: 10, marginHorizontal: 10, }}>
+                  
+                    <Image source={item.artwork} style={{ width: 70, height: 70, marginHorizontal: 10,}} />
+                    <View style={{  alignItems: "center", marginVertical: 5 }}>
+                        <Text style={{ color: "#ffffff" }}>
+                            {item.artist}
+                        </Text>
+                        <Text style={{ color: "#ffffff" }}>
+                            {item.title}
+                        </Text>
+                    </View>
 
-            <View style={{ alignItems: "center", marginHorizontal: 10, }}>
-                <StatusBar barStyle="light-content"/>
-                <Image source={item.artwork} style={{ width: 150, height: 150 }} />
-                <View style={{ alignItems: "center", marginVertical: 5 }}>
-                    <Text style={{ color: "#ffffff"}}>
-                        {item.artist}
-                    </Text>
-                    <Text style={{ color: "#ffffff" }}>
-                        {item.title}
-                    </Text>
                 </View>
-
-            </View>
-
+            </TouchableOpacity>
         );
     }
-    return (
-        
-        // <ImageBackground source={require('../image/back-index.png')}
-        //     style={{
-        //         width: '100%',
-        //         height: '100%',
-        //         paddingBottom: 0,
-        //         margin:0
-        //         }}>
-            
-        <View style={styles.container}>
-            <View style={{height:50}}/>
-            <StatusBar translucent backgroundColor='transparent' />
-             <TouchableOpacity style={{ alignItems: "flex-end", marginRight: 10, marginTop: 10 }}>
-                 <Icon
-
-                    name='sign-out'
-                    type='font-awesome'
-                    color='#f50'
-
-                    size={30}
-                    onPress={SignOut}
-                />
-            </TouchableOpacity>
-            <Text style={{ textAlign: "left", color: "#ffffff", fontSize: 22, fontWeight: "800", marginLeft: 10 }}>สวัสดีตอนเย็น</Text>
-            <View style={{ marginVertical: 10 }}>
-               
+  return (
+      <View style={styles.container}>
+          <View style={{ height: 50 }} />
+          <View>
             <FlatList
-                horizontal
-                data={Tracks}
+              
+                data={Tracks2}
                 renderItem={renderItem}
-                //   keyExtractor={(item) => item}
-                showsHorizontalScrollIndicator={false}
-                />
-            </View>
-            
-            <Text style={{textAlign:"left",color:"#ffffff",fontSize:22,fontWeight:"800",marginLeft:10}}>ศิลปินที่แนะนำ</Text>
-            <View style={{ marginVertical: 10 }}>
-            <FlatList
-                horizontal
-                data={Tracks}
-                renderItem={renderItem}
-                showsHorizontalScrollIndicator={false}
+            // showsHorizontalScrollIndicator={false}
             />
-            </View>
-        </View> 
-    // </ImageBackground>
-       
-    )
+        </View>
+
+    </View>
+  )
 }
 
 export default ListMusic

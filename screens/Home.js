@@ -1,94 +1,21 @@
-
 import React, { Component, useEffect, useState } from 'react';
-import {SafeAreaView,ScrollView,StatusBar,StyleSheet,Text,View,Button, TouchableOpacity, ImageBackground} from 'react-native';
-import { signOut ,getAuth } from "firebase/auth";
+import {
+    SafeAreaView, ScrollView, StatusBar, StyleSheet,
+    Text, View, Button, TouchableOpacity, ImageBackground,
+    FlatList, Image
+} from 'react-native';
+import { signOut, getAuth } from "firebase/auth";
 import TrackPlayer, {
     Capability, Event, RepeatMode,
     State, usePlaybackState, useProgress
     , useTrackPlayerEvents, getQueue
 } from 'react-native-track-player';
-import { Tracks } from "../list_music.js"
-import Slider from '@react-native-community/slider';
+import { Tracks, Tracks2 } from "../list_music.js"
+
 import Icon from 'react-native-vector-icons/FontAwesome';
-const Home = ({ navigation }) => {
+import { ListItem, Avatar } from 'react-native-elements';
 
-    const [volumemusic, setVolumemusic] = useState(0.5);
-    const [repeatMode, setRepeatMode] = useState('off');
-  
-    TrackPlayer.updateOptions({
-        stopWithApp: true,
-        capabilities: [
-            Capability.Play,
-            Capability.Pause,
-            Capability.SkipToNext,
-            Capability.SkipToPrevious,
-            Capability.Stop
-        ]
-    });
-   
-    const setupToPlay = async () => {
-        // console.log(Tracks);
-        await TrackPlayer.setupPlayer();
-        await TrackPlayer.add(Tracks);
-        await TrackPlayer.play();
-        TrackPlayer.setVolume(volumemusic);
-
-        // const storage = getStorage();
-        // const forestRef = ref(storage, 'music/YOUNGOHM-ดูไว้.mp3');
-        // getMetadata(forestRef)
-        //   .then((metadata) => {
-        //     console.log(metadata);
-
-        //   })
-        //   .catch((error) => {
-
-        //   });
-
-        // const tracks = await TrackPlayer.getQueue();
-        // console.log(tracks);
-
-    };
-    const PlayBack = async (playbackState) => {
-        const currentTrack = await TrackPlayer.getCurrentTrack();
-        if (currentTrack != null) {
-            if (playbackState == State.Paused) {
-                await TrackPlayer.play();
-            } else {
-                await TrackPlayer.pause();
-            }
-        }
-    }
-
-    const trackStop = async () => {
-        TrackPlayer.stop();
-    }
-    const SkipTo = async () => {
-        await TrackPlayer.skipToNext()
-    }
-    const SkipBack = async () => {
-        await TrackPlayer.skipToPrevious();
-    }
-    const playbackState = usePlaybackState();
-    const progress = useProgress();
-    const setVolume_Music = async (value) => {
-        TrackPlayer.setVolume(value);
-        setVolumemusic(value);
-    }
-    const repeatChange = () => {
-        if (repeatMode == 'off') {
-            TrackPlayer.setRepeatMode(RepeatMode.Track)
-            setRepeatMode('track');
-        }
-        if (repeatMode == 'track') {
-            TrackPlayer.setRepeatMode(RepeatMode.Queue)
-            setRepeatMode('repeat');
-        }
-        if (repeatMode == 'repeat') {
-            TrackPlayer.setRepeatMode(RepeatMode.Off)
-            setRepeatMode('off');
-        }
-    }
-
+const Home= ({  navigation }) => {
     const auth = getAuth();
     const SignOut = () => {
         signOut(auth).then(() => {
@@ -98,61 +25,108 @@ const Home = ({ navigation }) => {
             alert(error.message)
         });
     }
-    return (
-       
-      <View>
-         
-        
-           
-          <View style={{ height: 100 }} />
-          <View style={{ flexDirection: 'row' }}>
-              <Text style={{ color: "#000000" }}>
-                  {new Date(progress.position * 1000).toISOString().substring(14, 19)}
-              </Text>
+    const renderItem = ({ item }) => {
+        return (
 
-             
-              <Slider
-                  style={{ width: 200, height: 40 }}
-                  value={progress.position}
-                  minimumValue={0}
-                  maximumValue={progress.duration}
-                  minimumTrackTintColor="red"
-                  maximumTrackTintColor="#000000"
-                  onSlidingComplete={async (value) => {
-                      await TrackPlayer.seekTo(value);
-                  }}
-              />
+            <TouchableOpacity onPress={() => navigation.navigate('ListMusic')}>
+            <View style={{ alignItems: "center", marginHorizontal: 10, }}>
+                <StatusBar barStyle="light-content"/>
+                <Image source={item.artwork} style={{ width: 150, height: 150 }} />
+                <View style={{ alignItems: "center", marginVertical: 5 }}>
+                    <Text style={{ color: "#ffffff"}}>
+                        {item.artist}
+                    </Text>
+                    <Text style={{ color: "#ffffff" }}>
+                        {item.title}
+                    </Text>
+                </View>
 
-              <Text style={{ color: "#000000" }}>
-                  {new Date((progress.duration - progress.position) * 1000).toISOString().substring(14, 19)}
-              </Text>
-
-          </View>
-          <View style={{ flexDirection: "column" }}>
-              <Slider
-                  style={{ width: 200, height: 40 }}
-                  value={0.5}
-                  minimumValue={0}
-                  maximumValue={1}
-                  minimumTrackTintColor="red"
-                  maximumTrackTintColor="#000000"
-                  onValueChange={value => setVolume_Music(value)}
-              />
-              <Text>{parseInt(volumemusic * 100)}%</Text>
-          </View>
-          <View style={{ height: 100 }} />
-      
-          <Button onPress={setupToPlay} title="Select"></Button>
-          <Button onPress={() => PlayBack(playbackState)} title="Play"></Button>
-          <Button onPress={trackStop} title="stop"></Button>
-          <Button onPress={SkipTo} title="=>"></Button>
-          <Button onPress={SkipBack} title="<="></Button>
-          <Button onPress={repeatChange} title={repeatMode}></Button>
             </View>
+            </TouchableOpacity>
+        );
+    }
+    return (
+        
+        // <ImageBackground source={require('../image/back-index.png')}
+        //     style={{
+        //         width: '100%',
+        //         height: '100%',
+        //         paddingBottom: 0,
+        //         margin:0
+        //         }}>
+            
+        <View style={styles.container}>
+            <ScrollView>
+                <View style={{ height: 50 }} />
+                
+                <StatusBar translucent backgroundColor='transparent' />
+                
+             <TouchableOpacity style={{ alignItems: "flex-end", marginRight: 10, marginTop: 10 }}>
+                 <Icon
+
+                    name='sign-out'
+                    type='font-awesome'
+                    color='#f50'
+
+                    size={30}
+                    onPress={SignOut}
+                />
+            </TouchableOpacity>
+            <Text style={{ textAlign: "left", color: "#ffffff", fontSize: 22, fontWeight: "800", marginLeft: 10 }}>สวัสดีตอนเย็น</Text>
+           
+                <View style={{ marginVertical: 10 }}>
+            <FlatList
+                horizontal
+                data={Tracks}
+                renderItem={renderItem}
+                //   keyExtractor={(item) => item}
+                showsHorizontalScrollIndicator={false}
+                />
+            </View>
+            
+            <Text style={{textAlign:"left",color:"#ffffff",fontSize:22,fontWeight:"800",marginLeft:10}}>ศิลปินที่แนะนำ</Text>
+            <View style={{ marginVertical: 10 }}>
+            <FlatList
+                horizontal
+                data={Tracks2}
+                renderItem={renderItem}
+                showsHorizontalScrollIndicator={false}
+            />
+            </View>
+
+                <View style={{ marginVertical: 10 }}>
+                    <FlatList
+                        horizontal
+                        data={Tracks}
+                        renderItem={renderItem}
+                        //   keyExtractor={(item) => item}
+                        showsHorizontalScrollIndicator={false}
+                    />
+                </View>
+                <Text style={{ textAlign: "left", color: "#ffffff", fontSize: 22, fontWeight: "800", marginLeft: 10 }}>ศิลปินที่แนะนำ</Text>
+                <View style={{ marginVertical: 10 }}>
+                    <FlatList
+                        horizontal
+                        data={Tracks2}
+                        renderItem={renderItem}
+                    showsHorizontalScrollIndicator={false}
+                    />
+                </View>
+            </ScrollView>
+        </View> 
+    // </ImageBackground>
        
-  )
+    )
 }
 
 export default Home
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+    container: {
+        // width: '100%',
+        // height: '100%',
+        flex: 1,
+        flexGrow: 2,
+        backgroundColor: "#000000"
+    },
+})
