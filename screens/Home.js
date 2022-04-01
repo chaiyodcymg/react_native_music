@@ -14,22 +14,25 @@ import { Tracks, Tracks2 } from "../list_music.js"
 
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { ListItem, Avatar } from 'react-native-elements';
-
-const Home= ({  navigation }) => {
+import { Provider, DarkTheme, DefaultTheme } from "react-native-paper";
+import BottomSheet from "./BottomSheet";
+const Home = ({ navigation }) => {
+    const [show, setShow] = useState(false);
     const auth = getAuth();
     const SignOut = () => {
         signOut(auth).then(() => {
             TrackPlayer.stop();
-            navigation.replace('Login');
         }).catch((error) => {
             alert(error.message)
         });
     }
+   
     const renderItem = ({ item }) => {
         return (
 
-            <TouchableOpacity onPress={() => navigation.navigate('ListMusic')}>
-            <View style={{ alignItems: "center", marginHorizontal: 10, }}>
+            <TouchableOpacity onPress={() => navigation.navigate('ListMusic')
+            }>
+                <View style={{ alignItems: "center", marginHorizontal: 10, }} >
                 <StatusBar barStyle="light-content"/>
                 <Image source={item.artwork} style={{ width: 150, height: 150 }} />
                 <View style={{ alignItems: "center", marginVertical: 5 }}>
@@ -54,7 +57,7 @@ const Home= ({  navigation }) => {
         //         paddingBottom: 0,
         //         margin:0
         //         }}>
-            
+   
         <View style={styles.container}>
             <ScrollView>
                 <View style={{ height: 50 }} />
@@ -113,7 +116,9 @@ const Home= ({  navigation }) => {
                     />
                 </View>
             </ScrollView>
-        </View> 
+            </View> 
+         
+        
     // </ImageBackground>
        
     )
@@ -127,6 +132,6 @@ const styles = StyleSheet.create({
         // height: '100%',
         flex: 1,
         flexGrow: 2,
-        backgroundColor: "#000000"
+        // backgroundColor: "#000000"
     },
 })

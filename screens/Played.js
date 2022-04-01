@@ -12,12 +12,12 @@ import Slider from '@react-native-community/slider';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 
-const Home = ({ route, navigation }) => {
+const Home = ({  navigation }) => {
 
     const [volumemusic, setVolumemusic] = useState(0.5);
     const [repeatMode, setRepeatMode] = useState('off');
     const [btnPlayer, setbtnPlayer] = useState('pause');
-    const { value } = route.params;
+
 
     TrackPlayer.updateOptions({
         stopWithApp: true,
@@ -37,10 +37,10 @@ const Home = ({ route, navigation }) => {
         await TrackPlayer.setVolume(volumemusic);
     };
 
-    useEffect(() => {
+    // useEffect(() => {
      
-        setupToPlay();
-    },[]);
+    //     setupToPlay();
+    // },[]);
         
 
 
@@ -91,17 +91,7 @@ const Home = ({ route, navigation }) => {
         <View>
             <StatusBar barStyle="dark-content" />
             <View style={{ height: 50 }} />
-            <TouchableOpacity style={{ alignItems: "flex-start", marginLeft: 10, marginTop: 10 }}>
-                <Icon
-
-                    name='angle-left'
-                    type='font-awesome'
-                    color='#f50'
-
-                    size={30}
-                    onPress={() => navigation.navigate('Home')}
-                />
-            </TouchableOpacity>
+        
           <View style={{ height: 100 }} />
           <View style={{ flexDirection: 'row' }}>
               <Text style={{ color: "#000000" }}>

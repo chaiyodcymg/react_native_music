@@ -24,27 +24,20 @@ const Login = ({ navigation }) => {
 
     const auth = getAuth();
 
-    useEffect(() => {
-        // const auth = getAuth();
-        onAuthStateChanged(auth, (authUser) => {
-            // console.log(authUser);
-            if (authUser) {
-                navigation.replace('Home');
-            }
-        });
+    // useEffect(() => {
+    //     // const auth = getAuth();
+    //     onAuthStateChanged(auth, (authUser) => {
+    //         // console.log(authUser);
+    //         if (authUser) {
+    //             navigation.replace('Home');
+    //         }
+    //     });
 
-    }, []);
+    // }, []);
     const signIn = () => {
 
         signInWithEmailAndPassword(auth, email, password)
-            .then(() => {
-               
-                navigation.replace('Home');
-             
-            })
-            .catch((error) => {
-                alert(error.message)
-            });
+          
     }
   return (
       <KeyboardAvoidingView enabled style={styles.container}>
