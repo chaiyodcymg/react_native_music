@@ -4,17 +4,30 @@ import {
     Dimensions,
     Pressable,
     StyleSheet,
-    View, StatusBar, ScrollView,Text
+    View, StatusBar, ScrollView, Text, TouchableOpacity, Image
 } from "react-native";
 import { PanGestureHandler } from "react-native-gesture-handler";
 import {  Portal } from "react-native-paper";
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Played from './Played'
+import TrackPlayer, {
+    Capability, Event, RepeatMode,
+    State, usePlaybackState, useProgress
+    , useTrackPlayerEvents, getQueue
+} from 'react-native-track-player';
+import Slider from '@react-native-community/slider';
+
+
 const BottomSheet = ({show, onDismiss, enableBackdropDismiss, children }) => {
     const bottomSheetHeight = Dimensions.get("window").height * 1.0;
     const deviceWidth = Dimensions.get("window").width;
     const [open, setOpen] = useState(show);
     const bottom = useRef(new Animated.Value(-bottomSheetHeight)).current;
+
+    const [showPlayer, setshowPlayer] = useState(false);
+    const [trackArtwork, setTrackArtwork] = useState("");
+    const [trackTitle, setTrackTitle] = useState("");
+    const [trackArtist, setTrackArtist] = useState("");
 
     const onGesture = (event) => {
         if (event.nativeEvent.translationY > 0) {
@@ -54,9 +67,44 @@ const BottomSheet = ({show, onDismiss, enableBackdropDismiss, children }) => {
     if (!open) {
         return null;
     }
+    // useTrackPlayerEvents(
+    //     [
+    //         Event.PlaybackQueueEnded,
+    //         Event.PlaybackTrackChanged,
+    //         Event.RemotePlay,
+    //         Event.RemotePause,
+    //     ],
+    //     async event => {
+    //         if (event.type === Event.PlaybackTrackChanged && event.nextTrack !== undefined) {
+    //             // const track = await TrackPlayer.getTrack(event.nextTrack);
+    //             // console.log("เข้าา")
+    //             setshowPlayer(true);
+    //             setbtnPlayer('pause')
+    //             const track = await TrackPlayer.getTrack(event.nextTrack);
+    //             const { title, artist, artwork } = track || {};
+    //             console.log(title);
+    //             setTrackTitle(title);
+    //             setTrackArtist(artist);
+    //             setTrackArtwork(artwork);
+    //             // console.log(tracks);
+
+    //         }
+
+    //         else {
+    //             setshowPlayer(false);
+    //             setbtnPlayer('play')
+    //             console.log('Event.PlaybackQueueEnded fired.');
+    //         }
+    //         // console.log(Event.PlaybackQueueEnded);
+    //     },
+    // );
     return (
+        
+      
+             
         <Portal>
-            <StatusBar translucent backgroundColor='transparent' barStyle="dark-content"/>
+          
+            {/* <StatusBar translucent backgroundColor='transparent' barStyle="dark-content"/> */}
             <Pressable
                 onPress={enableBackdropDismiss ? onDismiss : undefined}
                 style={styles.backDrop}
@@ -87,31 +135,21 @@ const BottomSheet = ({show, onDismiss, enableBackdropDismiss, children }) => {
                             },
                         ]}
                     >
-                        {/* <View
-                            style={{
-                                width: 60,
-                                height: 3,
-                                borderRadius: 1.5,
-                                position: "absolute",
-                                top: 8,
-                                left: (deviceWidth - 60) / 2,
-                                zIndex: 10,
-                                backgroundColor: "#ccc",
-                            }}
-                        /> */}
+                    
                         <Icon
                             name='angle-down'
                             type='font-awesome'
-                            color='#f50'
+                            color='white'
                             size={35}
                             style={styles.closeIcon}
                             onPress={onDismiss}
                         />
                     </View>
                 </PanGestureHandler>
-                <Played/>
+                {children}
             </Animated.View>
-        </Portal>
+            </Portal>
+        
     );
 };
 
@@ -121,14 +159,14 @@ const styles = StyleSheet.create({
         left: 0,
         right: 0,
         zIndex: 99,
-        backgroundColor: "#fff",
+        backgroundColor: "#80bfff",
         borderTopLeftRadius: 16,
         borderTopRightRadius: 16,
         overflow: "hidden",
     },
     header: {
         height: 100,
-        backgroundColor: "#fff",
+        backgroundColor: "#80bfff",
     },
     common: {
         // shadowColor: "#000",
@@ -137,7 +175,7 @@ const styles = StyleSheet.create({
         // },
         // shadowOpacity: 0.24,
         // shadowRadius: 4,
-        elevation: 3,
+        // elevation: 3,
     },
     closeIcon: {
         marginTop: 30,

@@ -14,21 +14,34 @@ import { Tracks, Tracks2 } from "../list_music.js"
 
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-import BottomSheet from "./BottomSheet";
+import BottomSheet, { ShowStatusPlayer } from "./BottomSheet";
 import { Provider, DarkTheme, DefaultTheme } from "react-native-paper";
 
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
 // import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { Button } from 'react-native-elements';
-const ListMusic = ({ navigation, route}) => {
+import App from '../App';
+const ListMusic = ({ navigation}) => {
     // const [isVisible, setIsVisible] = useState(false);
     const [show, setShow] = useState(false);
     const [volumemusic, setVolumemusic] = useState(0.5);
+    const playbackState = usePlaybackState();
+
+    const sendparam = () => {
+        // console.log("เข้า")
+        return "pack";
+        
+    }
     const renderItem = ({ item }) => {
+        
+        
         return (
 
             <TouchableOpacity
-                onPress={() => setupToPlay() }
+                onPress={() => setupToPlay(item.id)}
+             
+                
+
             >
                
                 <View style={{ flexDirection: "row", alignItems: "center", marginVertical: 10, marginHorizontal: 10, }}>
@@ -47,23 +60,35 @@ const ListMusic = ({ navigation, route}) => {
             </TouchableOpacity>
         );
     }
-    TrackPlayer.updateOptions({
-        stopWithApp: true,
-        capabilities: [
-            Capability.Play,
-            Capability.Pause,
-            Capability.SkipToNext,
-            Capability.SkipToPrevious,
-            Capability.Stop
-        ]
-    });
-    const setupToPlay = async () => {
-        await TrackPlayer.setupPlayer();
-        await TrackPlayer.add(Tracks);
-        await TrackPlayer.play();
-        await TrackPlayer.setVolume(volumemusic);
-    };
+
+
+
   
+
+    const setupToPlay = async (id) => {
+        await TrackPlayer.setupPlayer();
+        TrackPlayer.updateOptions({
+            stopWithApp: true,
+            capabilities: [
+                Capability.Play,
+                Capability.Pause,
+                Capability.SkipToNext,
+                Capability.SkipToPrevious,
+                Capability.Stop
+            ],
+
+        });
+        await TrackPlayer.reset();
+        await TrackPlayer.add(Tracks);
+        TrackPlayer.play();
+       TrackPlayer.setVolume(volumemusic);
+    };
+    useEffect(() => {
+     
+      
+       
+        // return () => TrackPlayer.destroy();
+    },[]);
     return (
         <View style={styles.container}>
          <StatusBar style="light" />
@@ -85,7 +110,7 @@ const ListMusic = ({ navigation, route}) => {
                 
                 <FlatList
 
-                    data={Tracks2}
+                    data={Tracks}
                     renderItem={renderItem}
                     style={styles.flatlist}
                 // showsHorizontalScrollIndicator={false}

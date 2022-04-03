@@ -16,7 +16,9 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import { ListItem, Avatar } from 'react-native-elements';
 import { Provider, DarkTheme, DefaultTheme } from "react-native-paper";
 import BottomSheet from "./BottomSheet";
-const Home = ({ navigation }) => {
+const Home = ({  navigation }) => {
+   
+
     const [show, setShow] = useState(false);
     const auth = getAuth();
     const SignOut = () => {

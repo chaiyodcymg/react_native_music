@@ -37,10 +37,10 @@ const Home = ({  navigation }) => {
         await TrackPlayer.setVolume(volumemusic);
     };
 
-    // useEffect(() => {
+    useEffect(() => {
      
-    //     setupToPlay();
-    // },[]);
+        setupToPlay();
+    },[]);
         
 
 
@@ -66,6 +66,7 @@ const Home = ({  navigation }) => {
     }
     const playbackState = usePlaybackState();
     const progress = useProgress();
+    
     const setVolume_Music = async (value) => {
         TrackPlayer.setVolume(value);
         setVolumemusic(value);

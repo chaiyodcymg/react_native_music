@@ -7,17 +7,18 @@ import React, { useState, useEffect } from 'react'
 import { onAuthStateChanged, signInWithEmailAndPassword, getAuth } from "firebase/auth";
 
 import { initializeApp } from "firebase/app";
+
 const firebaseConfig = {
-    apiKey: "AIzaSyC6cyXh4HIM_ycqmratF1farIrbnCLQZUA",
-    authDomain: "react-music-3270e.firebaseapp.com",
-    databaseURL: "https://react-music-3270e-default-rtdb.asia-southeast1.firebasedatabase.app",
-    projectId: "react-music-3270e",
-    storageBucket: "react-music-3270e.appspot.com",
-    messagingSenderId: "469054163159",
-    appId: "1:469054163159:web:d523f3cac566c9ea740892",
-    measurementId: "G-BJ0L0MD115"
+    apiKey: "AIzaSyBqdFA00KuOF-3IZSB0V3KgRsW0t8NuY1E",
+    authDomain: "react-music-b727c.firebaseapp.com",
+    projectId: "react-music-b727c",
+    storageBucket: "react-music-b727c.appspot.com",
+    messagingSenderId: "76095914634",
+    appId: "1:76095914634:web:937bb379fa5f6913fa2373",
+    measurementId: "G-SV7GSPD4NT"
 };
 initializeApp(firebaseConfig);
+
 const Login = ({ navigation }) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
