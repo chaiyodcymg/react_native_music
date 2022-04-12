@@ -20,18 +20,14 @@ import { Provider, DarkTheme, DefaultTheme } from "react-native-paper";
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
 // import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { Button } from 'react-native-elements';
-import App from '../App';
+
 const ListMusic = ({ navigation}) => {
     // const [isVisible, setIsVisible] = useState(false);
     const [show, setShow] = useState(false);
     const [volumemusic, setVolumemusic] = useState(0.5);
     const playbackState = usePlaybackState();
+    const [indexTrack, setindexTrack] = useState(0);
 
-    const sendparam = () => {
-        // console.log("เข้า")
-        return "pack";
-        
-    }
     const renderItem = ({ item }) => {
         
         
@@ -40,8 +36,6 @@ const ListMusic = ({ navigation}) => {
             <TouchableOpacity
                 onPress={() => setupToPlay(item.id)}
              
-                
-
             >
                
                 <View style={{ flexDirection: "row", alignItems: "center", marginVertical: 10, marginHorizontal: 10, }}>
@@ -66,26 +60,49 @@ const ListMusic = ({ navigation}) => {
   
 
     const setupToPlay = async (id) => {
-        await TrackPlayer.setupPlayer();
-        TrackPlayer.updateOptions({
-            stopWithApp: true,
-            capabilities: [
-                Capability.Play,
-                Capability.Pause,
-                Capability.SkipToNext,
-                Capability.SkipToPrevious,
-                Capability.Stop
-            ],
+        // console.log("id = " + id);
+        const currentTrack = await TrackPlayer.getCurrentTrack();
+        // console.log("crren =" + currentTrack);
+        if (currentTrack != null) {
+            await TrackPlayer.skip(id);
+            await TrackPlayer.play();
+        } else {
 
-        });
-        await TrackPlayer.reset();
-        await TrackPlayer.add(Tracks);
-        TrackPlayer.play();
-       TrackPlayer.setVolume(volumemusic);
+            TrackPlayer.setupPlayer();
+            TrackPlayer.updateOptions({
+                stopWithApp: true,
+                capabilities: [
+                    Capability.Play,
+                    Capability.Pause,
+                //     Capability.SkipToNext,
+                //     Capability.SkipToPrevious,
+                    Capability.Stop
+                ],
+
+            });
+
+            await TrackPlayer.add(Tracks);
+            await TrackPlayer.play();
+        }
+        // await TrackPlayer.reset();
+        
+       
+       
+        //      TrackPlayer.skip(id);
+        // } else {
+            // console.log(currentTrack);
+
+       
+        // }
+        // TrackPlayer.add(Tracks);
+     
+      
+
+    //    TrackPlayer.setVolume(volumemusic);
     };
     useEffect(() => {
      
-      
+        
        
         // return () => TrackPlayer.destroy();
     },[]);

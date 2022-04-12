@@ -1,30 +1,18 @@
 import {
     StyleSheet, Text, View, KeyboardAvoidingView,
-    Button,TextInput
-
+    TextInput, StatusBar, ImageBackground, Dimensions, TouchableOpacity
 } from 'react-native'
+import { Button } from 'react-native-elements';
 import React, { useState, useEffect } from 'react'
-import { onAuthStateChanged, signInWithEmailAndPassword, getAuth } from "firebase/auth";
-
-import { initializeApp } from "firebase/app";
-
-const firebaseConfig = {
-    apiKey: "AIzaSyBqdFA00KuOF-3IZSB0V3KgRsW0t8NuY1E",
-    authDomain: "react-music-b727c.firebaseapp.com",
-    projectId: "react-music-b727c",
-    storageBucket: "react-music-b727c.appspot.com",
-    messagingSenderId: "76095914634",
-    appId: "1:76095914634:web:937bb379fa5f6913fa2373",
-    measurementId: "G-SV7GSPD4NT"
-};
-initializeApp(firebaseConfig);
-
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../firebase"
+import Video from 'react-native-video';
+import Icon from 'react-native-vector-icons/FontAwesome';
 const Login = ({ navigation }) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-
-    const auth = getAuth();
-
+    const authen = auth;
+ 
     // useEffect(() => {
     //     // const auth = getAuth();
     //     onAuthStateChanged(auth, (authUser) => {
@@ -33,56 +21,120 @@ const Login = ({ navigation }) => {
     //             navigation.replace('Home');
     //         }
     //     });
-
     // }, []);
+
     const signIn = () => {
-
-        signInWithEmailAndPassword(auth, email, password)
-          
+        signInWithEmailAndPassword(authen, email, password)
+            .then(() => {
+                console.log("success");
+            }).catch((error) => {
+                alert(error)
+            })
     }
-  return (
-      <KeyboardAvoidingView enabled style={styles.container}>
-        
-         
-          <View style={styles.inputContainer}>
-              <TextInput
-                  placeholder='อีเมล'
-                  autoFocus
-                  type="Email"
-                  value={email}
-                  onChangeText={(text) => setEmail(text)}
-              />
-              <TextInput
-                  placeholder='รหัสผ่าน'
-                  secureTextEntry
-                  type="password"
-                  value={password}
-                  onChangeText={(text) => setPassword(text)}
-              />
-          </View>
+    return (
+        <KeyboardAvoidingView enabled style={styles.container}>
+            <StatusBar translucent backgroundColor='transparent' barStyle="dark-content" />
+            <View style={{ flex: 1 }}>
+                <Video
+                    source={require('../image/blackpinkcrop.mp4')}
+                    style={styles.backgroundVideo}
+                    muted={true}
+                    repeat={true}
+                    resizeMode={'cover'}
+                    rate={1.0}
+                    ignoreSilentSwitch={'obey'}
+                />
+                <TouchableOpacity style={{ alignItems: "flex-start", marginTop: 50 }}>
+                    <Icon
 
-          <Button containerStyle={styles.button} onPress={signIn} title="เข้าสู่ระบบ" />
+                        name='angle-left'
+                        type='font-awesome'
+                        color='#ffffff'
 
-          <Button containerStyle={styles.button} onPress={() => navigation.navigate('Register')} type="outline" title="สร้างบัญชีใหม่" />
-          <View style={{ height: 20 }} />
-      </KeyboardAvoidingView>
-  )
+                        size={30}
+                        onPress={() => navigation.navigate('Welcome')}
+                    />
+                </TouchableOpacity>
+                <View style={styles.container}>
+
+                    <TextInput
+                        style={styles.input}
+                        placeholder="อีเมล"
+                        type="text"
+                        value={email}
+                        onChangeText={(text) => setEmail(text)}
+                        placeholderTextColor="white"></TextInput>
+
+                    <TextInput
+                        style={styles.input}
+                        placeholder="รหัสผ่าน"
+                        type="password"
+                        secureTextEntry
+                        value={password}
+                        onChangeText={(text) => setPassword(text)}
+                        placeholderTextColor="white"></TextInput>
+
+                    <Button onPress={signIn} title="เข้าสู่ระบบ"
+                        titleStyle={styles.titlestyle}
+                        buttonStyle={{
+                        backgroundColor: '#1ed660',
+                        borderRadius: 25,
+                        width: 350,
+                        height: 50,
+                        }}></Button>
+
+                    <Button onPress={() => navigation.navigate('Register')} title="สร้างบัญชีใหม่"
+                        type="clear"
+                        titleStyle={styles.titlestyle}
+                        buttonStyle={{
+                            width: 320,
+                            height: 50,
+                        }}></Button>
+                </View>
+            </View>
+
+
+            {/* <View style={{ height: 20 }} /> */}
+
+        </KeyboardAvoidingView>
+    )
 }
-export default Login
+export default Login;
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        alignItems: "center",
-        justifyContent: "center",
-        padding: 10,
-
+        alignItems: 'center',
+        justifyContent: 'center',
+        zIndex:1
     },
-    inputContainer: {
-        width: 300,
+    // inputContainer: {
+    //     width: 300,
+    // },
+    input: {
+        backgroundColor: '#a9a9a9',
+        borderRadius: 10,
+        width: 350,
+        padding: 15,
+        color: 'white',
+        marginBottom: 10,
+        fontSize: 20,
     },
-    button: {
-        width: 200,
-        marginTop: 10,
-
+    // button: {
+    //     marginTop: 5,
+    // },
+    titlestyle: {
+        fontSize: 20,
+        color: 'white',
     },
-})
+    backgroundVideo: {
+        width: "100%",
+        height: '100%',
+        // zIndex:0,
+        position: 'absolute',
+        // top: 0,
+        // right: 0,
+        // bottom: 0,
+        left: -31,
+    },
+});

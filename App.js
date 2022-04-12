@@ -6,7 +6,7 @@
  * @flow strict-local
  */
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 import {
   SafeAreaView,
@@ -15,7 +15,7 @@ import {
   StyleSheet,
   Text,
   useColorScheme,
-  View, Button, TouchableOpacity, Image ,Pressable
+  View, Button, TouchableOpacity, Image, Pressable, FlatList
 } from 'react-native';
 import Login from './screens/Login';
 import { NavigationContainer, DarkTheme, DefaultTheme } from '@react-navigation/native';
@@ -24,11 +24,17 @@ import Played from './screens/Played';
 import Home from './screens/Home';
 import ListMusic from './screens/ListMusic';
 import Search from './screens/Search';
+import Register from './screens/Register';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { onAuthStateChanged, signInWithEmailAndPassword, getAuth } from "firebase/auth";
+
 import Icon from 'react-native-vector-icons/FontAwesome';
 import BottomSheet from "./screens/BottomSheet";
 import { Provider } from "react-native-paper";
+
+
+//yun
+
+// import Register from './screens/Register';
 
 import TrackPlayer, {
   Capability, Event, RepeatMode,
@@ -38,7 +44,11 @@ import TrackPlayer, {
 } from 'react-native-track-player';
 import { Tracks } from "./list_music.js"
 import Slider from '@react-native-community/slider';
-import { async } from '@firebase/util';
+
+
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from './firebase';
+import Welcome from './screens/Welcome';
 
 const Stack = createNativeStackNavigator();
 
@@ -50,13 +60,6 @@ const globalScreenOptions = {
   headerTitleStyle: { color: "white" },
   headerTintColor: "white",
 }
-const Theme = {
-  ...DefaultTheme,
-  colors: {
-    ...DefaultTheme.colors,
-    primary: 'rgb(255, 45, 85)',
-  },
-};
 
 // const events = [
 //   TrackPlayerEvents.PLAYBACK_STATE,
@@ -65,26 +68,27 @@ const Theme = {
 
 
 
-export default function App({ route, navigation }) {
-  if (route != null) {
-    const { itemId, otherParam } = route.params;
-    console.log("เข้า "+otherParam)
-  }
-  
-  
+
+
+
+
+export default function App({navigation}) {
+
+
+
   const [user, setUser] = useState(null);
   const [show, setShow] = useState(false);
-  
+
 
   const [btnPlayer, setbtnPlayer] = useState('play');
-  const [showPlayer, setshowPlayer] = useState(false);
-  const [trackArtwork, setTrackArtwork] = useState("");
-  const [trackTitle, setTrackTitle] = useState("");
-  const [trackArtist, setTrackArtist] = useState("");
-
+  const showPlayer = useRef(false);
+  const trackArtwork = useRef(null);
+  const trackTitle = useRef(null);
+  const trackArtist = useRef(null);
+  const trackList = useRef(null);
   const [TimeStart, setTimeStart] = useState(0);
 
-  const auth = getAuth();
+
   const playbackState = usePlaybackState();
   const progress = useProgress();
   const [statusTimeStart, setstatusTimeStart] = useState(0);
@@ -98,72 +102,58 @@ export default function App({ route, navigation }) {
       Event.RemotePause,
     ],
     async event => {
-    
-      if ( event.type === Event.PlaybackTrackChanged && event.nextTrack !== undefined) {
-        
+
+      console.log(event.type);
   
-        // setbtnPlayer('pause');
-        const track = await TrackPlayer.getTrack(event.nextTrack);
-        const { title, artist, artwork } =  track || {};
-        // console.log(track);
-        setTrackTitle(title);
-        setTrackArtist(artist);
-        setTrackArtwork(artwork);
-        setshowPlayer(true);
-        // const currentTrack = await TrackPlayer.getCurrentTrack();
-        // if (currentTrack != null) {
-          if (playbackState == State.Paused) {
-          
-            setbtnPlayer("play");
-            // await TrackPlayer.play();
-          } else {
-            // await TrackPlayer.pause();
-            setbtnPlayer("pause");
-          }
-        // }
-        // const currentTrack = await TrackPlayer.getCurrentTrack();
+      if (event.type === Event.PlaybackTrackChanged && event.nextTrack !== undefined) {
       
-        // if (currentTrack != null) {
 
-        //   console.log(currentTrack);
-
-        //   if (playbackState == State.Paused) {
-        //     // console.log("Paused = " +currentTrack);
-        //     setbtnPlayer("play");
-
-        //     // console.log("Paused = " + State.Paused);
-        //   }else {
-        //     setbtnPlayer("pause");
-
-        //     // console.log("Playing = " + playbackState);
-           
-        //   }
-        
-        // }
+        // console.log(playbackState);
+        // console.log(State)
+        const track = await TrackPlayer.getTrack(event.nextTrack);
+        const { title, artist, artwork } = track || {};
+        // console.log(track);
+        trackTitle.current = title;
+        trackArtwork.current = artwork;
+        trackArtist.current = artist;
      
-        // ChangeTimeTrack();
+    
+          showPlayer.current = true;
+        // console.log("playbackState = " + playbackState);
+        // console.log("playbackState = "+playbackState);
+        //   // setbtnPlayer("pause");
+        // console.log("State  = "+State.Paused);
+        if (playbackState == State.Paused) {
+      
+          setbtnPlayer("play");
+        } else if (playbackState == State.Playing) {
+ 
+          setbtnPlayer("pause");
+        }
       }
-
+ 
+       
       else {
-        setshowPlayer(false);
+     
+        showPlayer.current = true;
+        // }
         setbtnPlayer('play')
         console.log('Event.PlaybackQueueEnded fired.');
       }
       // console.log(Event.PlaybackQueueEnded);
     },
   );
-  const ChangeTimeTrack = () => {
-    setstatusTimeStart(new Date(progress.position * 1000).toISOString().substring(14, 19));
-    setstatusTimeEnd(new Date((progress.duration - progress.position) * 1000).toISOString().substring(14, 19));
-  }
+
+
+  const authen = auth;
   useEffect(() => {
 
-    onAuthStateChanged(auth, (authUser) => {
+    onAuthStateChanged(authen, (authUser) => {
       setUser(authUser);
-      // console.log('login success')
+   
     });
-    
-  },[]);
+
+  }, []);
 
   const SetShowButtonSheet = () => {
     setShow(true);
@@ -173,29 +163,29 @@ export default function App({ route, navigation }) {
     const currentTrack = await TrackPlayer.getCurrentTrack();
     if (currentTrack != null) {
       if (playbackState == State.Paused) {
-        setbtnPlayer("pause");
+  
         await TrackPlayer.play();
       } else {
         await TrackPlayer.pause();
-        setbtnPlayer("play");
+ 
       }
     }
   }
   const SkipTo = async () => {
     try {
-    
+
       await TrackPlayer.skipToNext()
     } catch (error) {
-      
+
     }
-  
+
   }
   const SkipBack = async () => {
     try {
- 
+
       await TrackPlayer.skipToPrevious();
-       } catch (error) {
-      
+    } catch (error) {
+
     }
   }
   // const SetStatusbtnPlay = () => {
@@ -205,70 +195,130 @@ export default function App({ route, navigation }) {
   //     setbtnPlayer("pause");
   //   }
   // }
-
+  // const screen = '';
   // if (user == null) {
-  //   return <Login />;
+ 
+  //   <Stack.Navigator >
+  //         <Stack.Screen options={{ headerShown: false }} name="Welcome" component={Welcome} />
+  //         <Stack.Screen options={{ headerShown: false }} name="Login" component={Login} />
+  //       </Stack.Navigator>
+
+  
+  // } else {
+  //     <Tab.Screen options={{ headerShown: false }} name='TabHome' >
+  //     {() => (
+  //       <Stack.Navigator >
+
+  //         <Stack.Screen options={{ headerShown: false }} name="Welcome" component={Welcome} />
+  //         <Stack.Screen options={{ headerShown: false }} name="Login" component={Login} />
+  //         <Stack.Screen options={{ headerShown: false }} name='Home' component={Home} />
+  //         <Stack.Screen options={{ headerShown: false }} name='ListMusic' component={ListMusic} />
+  //         <Stack.Screen options={{ headerShown: false }} name='Played' component={Played} />
+  //       </Stack.Navigator>
+
+  //     )}
+  //   </Tab.Screen>
   // }
 
- 
+  const renderItem = ({ item }) => {
+    // console.log(item.artwork);
+    return (
+      <View style={{ marginHorizontal: 20, height: 60, justifyContent: "center" }}>
+        <Image source={item.artwork} style={{ width: 50, height: 50, }} />
+      </View>
+    )
+  }
   return (
     <Provider >
-    <NavigationContainer theme={DarkTheme}>
-      <Tab.Navigator screenOptions={({ route }) => ({
-        tabBarIcon: ({ focused, color, size }) => {
-          if (route.name === 'TabHome') {
-            return (
-              <Icon
-
-                name='home'
-                type='font-awesome'
-                size={size}
-                color={color}
-          
-              />
-            );
-          } else if (route.name === 'TabSearch') {
-            return (
-              <Icon
-
-                name='search'
-                type='font-awesome'
-                size={size}
-                color={color}
-
-              />
-            );
-          }
-        },
-        tabBarInactiveTintColor: 'gray',
-        tabBarActiveTintColor: 'white',
-      })}>
-        <Tab.Screen options={{ headerShown: false }} name='TabHome' >
-        {() => (
-         <Stack.Navigator >
-              <Stack.Screen options={{ headerShown: false }} name='Home' component={Home} />
-              <Stack.Screen options={{ headerShown: false }} name='ListMusic' component={ListMusic} />
-              <Stack.Screen options={{ headerShown: false }} name='Played' component={Played} />
-            </Stack.Navigator>
-           
-        )}
-        </Tab.Screen>
-          <Tab.Screen options={{ headerShown: false }} name='TabSearch'>
-          {() => (
-            <Stack.Navigator >
-              <Stack.Screen options={{ headerShown: false }} name='Search' component={Search} />
-         
-            </Stack.Navigator>
-          )}
-        </Tab.Screen>
-        
-      </Tab.Navigator>
-   
+      <NavigationContainer
+        theme={DarkTheme}
+      >
        
-        {(showPlayer) &&
+          {user == null ? (
+         
+            <Stack.Navigator >
+              <Stack.Screen options={{ headerShown: false }} name="Welcome" component={Welcome} />
+            <Stack.Screen options={{ headerShown: false }} name="Login" component={Login} />
+            <Stack.Screen options={{ headerShown: false }} name="Register" component={Register} />
+            </Stack.Navigator>
+          
+        ) : (
+            <Tab.Navigator screenOptions={({ route }) => ({
+              tabBarIcon: ({ focused, color, size }) => {
+                if (route.name === 'TabHome') {
+                  return (
+                    <Icon
+
+                      name='home'
+                      type='font-awesome'
+                      size={size}
+                      color={color}
+
+                    />
+                  );
+                } else if (route.name === 'TabSearch') {
+                  return (
+                    <Icon
+
+                      name='search'
+                      type='font-awesome'
+                      size={size}
+                      color={color}
+
+                    />
+                  );
+                }
+              },
+              tabBarInactiveTintColor: 'gray',
+              tabBarActiveTintColor: 'white',
+            })}>
+              <Tab.Screen options={{ headerShown: false }} name='TabHome' >
+                {() => (
+                  <Stack.Navigator >
+
+                   
+                    <Stack.Screen options={{ headerShown: false }} name='Home' component={Home} />
+                    <Stack.Screen options={{ headerShown: false }} name='ListMusic' component={ListMusic} />
+                    <Stack.Screen options={{ headerShown: false }} name='Played' component={Played} />
+                  </Stack.Navigator>
+
+                )}
+              </Tab.Screen>
+               <Tab.Screen options={{ headerShown: false }} name='TabSearch'>
+            {() => (
+              <Stack.Navigator >
+                <Stack.Screen options={{ headerShown: false }} name='Search' component={Search} />
+
+              </Stack.Navigator>
+            )}
+          </Tab.Screen>
+
+        </Tab.Navigator>
+          )
+        }
+              {/* <Tab.Screen options={{ headerShown: false }} name='TabHome' >
+                {() => (
+                  <Stack.Navigator >
+
+                    <Stack.Screen options={{ headerShown: false }} name="Welcome" component={Welcome} />
+                    <Stack.Screen options={{ headerShown: false }} name="Login" component={Login} />
+                    <Stack.Screen options={{ headerShown: false }} name='Home' component={Home} />
+                    <Stack.Screen options={{ headerShown: false }} name='ListMusic' component={ListMusic} />
+                    <Stack.Screen options={{ headerShown: false }} name='Played' component={Played} />
+                  </Stack.Navigator>
+
+                )}
+                </Tab.Screen> */}
+        
+        
+
+         
+
+
+        {(showPlayer.current) &&
           <View>
 
-          
+
             <View style={{
               position: "absolute",
               bottom: 48,
@@ -290,28 +340,41 @@ export default function App({ route, navigation }) {
                     alignItems: "center",
                     maxWidth: 370,
                     minWidth: 370,
-                    height: 50,
+
+
                     // backgroundColor: "red",
 
                   }}>
                   <View style={{ flexDirection: "row", alignItems: "center" }}>
-                    <Image source={trackArtwork} style={{ width: 40, height: 40, marginRight: 15, marginLeft: 20, }} />
+
+                    <Image source={trackArtwork.current} style={{ width: 50, height: 50, }} />
+                    {/* <FlatList
+                      contentContainerStyle={{ alignSelf: 'flex-start' }}
+                      data={Tracks}
+                      renderItem={renderItem}
+                   
+                      keyExtractor={item => item}
+                      style={{ maxWidth:200}}
+                      horizontal
+                    
+                      showsHorizontalScrollIndicator={false}
+                      /> */}
+
                     <View >
                       <Text style={{ color: "#ffffff" }}>
-                        {/* {trackArtist}  */}
-                        {trackArtist}
+                        {trackArtist.current}
 
                       </Text>
                       <Text style={{ color: "#ffffff" }}>
-                        {/* {trackTitle}  */}
-                        {trackTitle}
+
+                        {trackTitle.current}
                       </Text>
                     </View>
                   </View>
                 </Pressable>
 
                 <TouchableOpacity
-                    onPress={() => PlayBack(playbackState)}
+                  onPress={() => PlayBack(playbackState)}
                   style={{ marginRight: 20 }}
                 >
 
@@ -326,24 +389,24 @@ export default function App({ route, navigation }) {
 
               </View>
 
-            </View> 
-            
-           <BottomSheet
-          show={show}
-          onDismiss={() => {
-            setShow(false);
-          }}
-          enableBackdropDismiss
+            </View>
+
+            <BottomSheet
+              show={show}
+              onDismiss={() => {
+                setShow(false);
+              }}
+              enableBackdropDismiss
             >
               <View style={{ flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
 
-                <Image source={trackArtwork} style={{ width: "90%", height: 350, marginTop: 40, marginBottom: 20, }} />
+                <Image source={trackArtwork.current} style={{ width: "90%", height: 350, marginTop: 40, marginBottom: 20, }} />
 
                 <Text style={{ color: "white", fontSize: 20, fontWeight: "800" }}>
-                  {trackArtist}
+                  {trackArtist.current}
                 </Text>
                 <Text style={{ color: "white", fontSize: 18, fontWeight: "400" }}>
-                  {trackTitle}
+                  {trackTitle.current}
                 </Text>
                 <View style={{ flexDirection: 'column', width: "90%", marginTop: 20, }}>
                   <Slider
@@ -422,14 +485,14 @@ export default function App({ route, navigation }) {
                   </TouchableOpacity>
                 </View>
               </View>
-           
-          
+
+
             </BottomSheet>
           </View>
         }
-        
-       
-    
+
+
+
       </NavigationContainer>
     </Provider>
   );
@@ -447,7 +510,7 @@ export default function App({ route, navigation }) {
 </NavigationContainer> */}
 
 const styles = StyleSheet.create({
- 
+
 });
 
 

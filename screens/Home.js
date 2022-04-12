@@ -2,9 +2,9 @@ import React, { Component, useEffect, useState } from 'react';
 import {
     SafeAreaView, ScrollView, StatusBar, StyleSheet,
     Text, View, Button, TouchableOpacity, ImageBackground,
-    FlatList, Image
+    FlatList, Image, Alert
 } from 'react-native';
-import { signOut, getAuth } from "firebase/auth";
+
 import TrackPlayer, {
     Capability, Event, RepeatMode,
     State, usePlaybackState, useProgress
@@ -16,24 +16,64 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import { ListItem, Avatar } from 'react-native-elements';
 import { Provider, DarkTheme, DefaultTheme } from "react-native-paper";
 import BottomSheet from "./BottomSheet";
+import { auth } from '../firebase';
+import { signOut } from 'firebase/auth';
+
+
 const Home = ({  navigation }) => {
    
 
     const [show, setShow] = useState(false);
-    const auth = getAuth();
+    const authen = auth;
+    
     const SignOut = () => {
-        signOut(auth).then(() => {
-            TrackPlayer.stop();
-        }).catch((error) => {
-            alert(error.message)
-        });
+        Alert.alert(
+            "ออกจากระบบ",
+            "คุณแน่ใจหรือไม่ว่าต้องการออกจากระบบ",
+            [
+                {
+                    text: "ยกเลิก",
+                    
+                    style: "cancel"
+                },
+                {
+                    text: "ออกจากระบบ", onPress: () => 
+                    signOut(authen).then(() => {
+                        TrackPlayer.stop();
+                        console.log("signout");
+                    }).catch((error) => {
+                        alert(error.message)
+                    }) }
+            ]
+        );
+        
     }
+    // const SignOut = () => {
+    //     global.app.setState({logined:false});
+    //     this.setState({});
+    // }
+
+    const getdata = () => {
+        // const db = getDatabase();
+        // const starCountRef = ref(db, 'music/');
+        // onValue(starCountRef, (snapshot) => {
+
+        //     const data = snapshot.val();
+        //     console.log(data);
+        //     // return this.showmsg = data;
+        // });
+    };
+    useEffect(() => {
+
+      
+
+  },[])
    
     const renderItem = ({ item }) => {
         return (
 
-            <TouchableOpacity onPress={() => navigation.navigate('ListMusic')
-            }>
+            <TouchableOpacity onPress={() => getdata()
+            }>  
                 <View style={{ alignItems: "center", marginHorizontal: 10, }} >
                 <StatusBar barStyle="light-content"/>
                 <Image source={item.artwork} style={{ width: 150, height: 150 }} />
@@ -71,7 +111,7 @@ const Home = ({  navigation }) => {
 
                     name='sign-out'
                     type='font-awesome'
-                    color='#f50'
+                    color='#ffffff'
 
                     size={30}
                     onPress={SignOut}
@@ -79,7 +119,7 @@ const Home = ({  navigation }) => {
             </TouchableOpacity>
             <Text style={{ textAlign: "left", color: "#ffffff", fontSize: 22, fontWeight: "800", marginLeft: 10 }}>สวัสดีตอนเย็น</Text>
            
-                <View style={{ marginVertical: 10 }}>
+        <View style={{ marginVertical: 10 }}>
             <FlatList
                 horizontal
                 data={Tracks}
@@ -89,34 +129,9 @@ const Home = ({  navigation }) => {
                 />
             </View>
             
-            <Text style={{textAlign:"left",color:"#ffffff",fontSize:22,fontWeight:"800",marginLeft:10}}>ศิลปินที่แนะนำ</Text>
-            <View style={{ marginVertical: 10 }}>
-            <FlatList
-                horizontal
-                data={Tracks2}
-                renderItem={renderItem}
-                showsHorizontalScrollIndicator={false}
-            />
-            </View>
+           
 
-                <View style={{ marginVertical: 10 }}>
-                    <FlatList
-                        horizontal
-                        data={Tracks}
-                        renderItem={renderItem}
-                        //   keyExtractor={(item) => item}
-                        showsHorizontalScrollIndicator={false}
-                    />
-                </View>
-                <Text style={{ textAlign: "left", color: "#ffffff", fontSize: 22, fontWeight: "800", marginLeft: 10 }}>ศิลปินที่แนะนำ</Text>
-                <View style={{ marginVertical: 10 }}>
-                    <FlatList
-                        horizontal
-                        data={Tracks2}
-                        renderItem={renderItem}
-                    showsHorizontalScrollIndicator={false}
-                    />
-                </View>
+            
             </ScrollView>
             </View> 
          
