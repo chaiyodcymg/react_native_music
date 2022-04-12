@@ -18,7 +18,7 @@ import { Provider, DarkTheme, DefaultTheme } from "react-native-paper";
 import BottomSheet from "./BottomSheet";
 import { auth } from '../firebase';
 import { signOut } from 'firebase/auth';
-
+import { getDatabase, ref, onValue } from "firebase/database";
 
 const Home = ({  navigation }) => {
    
@@ -54,14 +54,14 @@ const Home = ({  navigation }) => {
     // }
 
     const getdata = () => {
-        // const db = getDatabase();
-        // const starCountRef = ref(db, 'music/');
-        // onValue(starCountRef, (snapshot) => {
+        const db = getDatabase();
+        const starCountRef = ref(db, 'listmusic/');
+        onValue(starCountRef, (snapshot) => {
 
-        //     const data = snapshot.val();
-        //     console.log(data);
-        //     // return this.showmsg = data;
-        // });
+            const data = snapshot;
+            console.log(data);
+            // return this.showmsg = data;
+        });
     };
     useEffect(() => {
 
@@ -117,7 +117,7 @@ const Home = ({  navigation }) => {
                     onPress={SignOut}
                 />
             </TouchableOpacity>
-            <Text style={{ textAlign: "left", color: "#ffffff", fontSize: 22, fontWeight: "800", marginLeft: 10 }}>สวัสดีตอนเย็น</Text>
+        <Text style={{ textAlign: "left", color: "#ffffff", fontSize: 22, fontWeight: "800", marginLeft: 10 }}>สวัสดีตอนเย็น</Text>
            
         <View style={{ marginVertical: 10 }}>
             <FlatList

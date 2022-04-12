@@ -8,13 +8,14 @@ import { auth } from '../firebase';
   import { createUserWithEmailAndPassword } from 'firebase/auth';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
+
   const Register = ({navigation}) => {
     // const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
   
       const authen = auth;
-  
+    
     useLayoutEffect(() => {
  
     }, []);
