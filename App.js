@@ -49,7 +49,8 @@ import Slider from '@react-native-community/slider';
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from './firebase';
 import Welcome from './screens/Welcome';
-
+import Video from 'react-native-video';
+import { ProgressBar, Colors } from 'react-native-paper';
 const Stack = createNativeStackNavigator();
 
 const Tab = createBottomTabNavigator();
@@ -72,7 +73,7 @@ const globalScreenOptions = {
 
 
 
-export default function App({navigation}) {
+export default function App({ navigation }) {
 
 
 
@@ -86,6 +87,7 @@ export default function App({navigation}) {
   const trackTitle = useRef(null);
   const trackArtist = useRef(null);
   const trackList = useRef(null);
+  const [backcolor, setbackcolor] = useState("#000000");
   const [TimeStart, setTimeStart] = useState(0);
 
 
@@ -93,6 +95,8 @@ export default function App({navigation}) {
   const progress = useProgress();
   const [statusTimeStart, setstatusTimeStart] = useState(0);
   const [statusTimeEnd, setstatusTimeEnd] = useState(0);
+  const [check, setcheck] = useState(0);
+  const [volumemusic, setVolumemusic] = useState(0.5);
 
   useTrackPlayerEvents(
     [
@@ -100,42 +104,51 @@ export default function App({navigation}) {
       Event.PlaybackTrackChanged,
       Event.RemotePlay,
       Event.RemotePause,
+      Event.RemoteSkip
     ],
     async event => {
 
-      console.log(event.type);
-  
-      if (event.type === Event.PlaybackTrackChanged && event.nextTrack !== undefined) {
-      
+      console.log(event);
 
+      if (event.type === Event.PlaybackTrackChanged && event.nextTrack !== undefined) {
+
+        // setcheck(check);
         // console.log(playbackState);
-        // console.log(State)
+        // const tracks = await TrackPlayer.getQueue();
+        // if (event.nextTrack != 0) {
         const track = await TrackPlayer.getTrack(event.nextTrack);
-        const { title, artist, artwork } = track || {};
+        const { title, artist, artwork, color } = track || {};
         // console.log(track);
         trackTitle.current = title;
         trackArtwork.current = artwork;
         trackArtist.current = artist;
-     
-    
-          showPlayer.current = true;
+        showPlayer.current = true;
+        // console.log(track);
+        setbackcolor(color);
+        // }
+
         // console.log("playbackState = " + playbackState);
         // console.log("playbackState = "+playbackState);
         //   // setbtnPlayer("pause");
         // console.log("State  = "+State.Paused);
-        if (playbackState == State.Paused) {
-      
-          setbtnPlayer("play");
-        } else if (playbackState == State.Playing) {
- 
-          setbtnPlayer("pause");
-        }
+        // if (playbackState == State.Paused) {
+
+        //   setbtnPlayer("play");
+        // } else if (playbackState == State.Playing) {
+
+        setbtnPlayer("pause");
+        TrackPlayer.setVolume(value);
+        setVolumemusic(value);
+        // }
+      } else if (event.type == Event.RemotePlay) {
+        setbtnPlayer("pause");
       }
- 
-       
+      else if (event.type == Event.RemotePause) {
+        setbtnPlayer("play");
+      }
       else {
-     
-        showPlayer.current = true;
+
+
         // }
         setbtnPlayer('play')
         console.log('Event.PlaybackQueueEnded fired.');
@@ -150,9 +163,9 @@ export default function App({navigation}) {
 
     onAuthStateChanged(authen, (authUser) => {
       setUser(authUser);
-   
-    });
 
+    });
+    // console.log(progress.position);
   }, []);
 
   const SetShowButtonSheet = () => {
@@ -163,11 +176,12 @@ export default function App({navigation}) {
     const currentTrack = await TrackPlayer.getCurrentTrack();
     if (currentTrack != null) {
       if (playbackState == State.Paused) {
-  
+        setbtnPlayer("pause");
         await TrackPlayer.play();
       } else {
+        setbtnPlayer("play");
         await TrackPlayer.pause();
- 
+
       }
     }
   }
@@ -175,6 +189,7 @@ export default function App({navigation}) {
     try {
 
       await TrackPlayer.skipToNext()
+      await TrackPlayer.play();
     } catch (error) {
 
     }
@@ -184,9 +199,17 @@ export default function App({navigation}) {
     try {
 
       await TrackPlayer.skipToPrevious();
+      await TrackPlayer.play();
     } catch (error) {
 
     }
+  }
+  if (user == null) {
+    showPlayer.current = false;
+  }
+  const setVolume_Music = async (value) => {
+    TrackPlayer.setVolume(value);
+    setVolumemusic(value);
   }
   // const SetStatusbtnPlay = () => {
   //   if (btnPlayer == "pause") {
@@ -197,13 +220,13 @@ export default function App({navigation}) {
   // }
   // const screen = '';
   // if (user == null) {
- 
+
   //   <Stack.Navigator >
   //         <Stack.Screen options={{ headerShown: false }} name="Welcome" component={Welcome} />
   //         <Stack.Screen options={{ headerShown: false }} name="Login" component={Login} />
   //       </Stack.Navigator>
 
-  
+
   // } else {
   //     <Tab.Screen options={{ headerShown: false }} name='TabHome' >
   //     {() => (
@@ -231,88 +254,34 @@ export default function App({navigation}) {
   return (
     <Provider >
       <NavigationContainer
-        theme={DarkTheme}
+
       >
-       
-          {user == null ? (
-         
-            <Stack.Navigator >
-              <Stack.Screen options={{ headerShown: false }} name="Welcome" component={Welcome} />
+
+        {user == null ? (
+
+          <Stack.Navigator >
+            <Stack.Screen options={{ headerShown: false }} name="Welcome" component={Welcome} />
             <Stack.Screen options={{ headerShown: false }} name="Login" component={Login} />
             <Stack.Screen options={{ headerShown: false }} name="Register" component={Register} />
-            </Stack.Navigator>
-          
+          </Stack.Navigator>
+
         ) : (
-            <Tab.Navigator screenOptions={({ route }) => ({
-              tabBarIcon: ({ focused, color, size }) => {
-                if (route.name === 'TabHome') {
-                  return (
-                    <Icon
 
-                      name='home'
-                      type='font-awesome'
-                      size={size}
-                      color={color}
+          <Stack.Navigator >
 
-                    />
-                  );
-                } else if (route.name === 'TabSearch') {
-                  return (
-                    <Icon
 
-                      name='search'
-                      type='font-awesome'
-                      size={size}
-                      color={color}
+            <Stack.Screen options={{ headerShown: false }} name='Home' component={Home} />
+            <Stack.Screen options={{ headerShown: false }} name='ListMusic' component={ListMusic} />
+            <Stack.Screen options={{ headerShown: false }} name='Played' component={Played} />
+          </Stack.Navigator>
 
-                    />
-                  );
-                }
-              },
-              tabBarInactiveTintColor: 'gray',
-              tabBarActiveTintColor: 'white',
-            })}>
-              <Tab.Screen options={{ headerShown: false }} name='TabHome' >
-                {() => (
-                  <Stack.Navigator >
 
-                   
-                    <Stack.Screen options={{ headerShown: false }} name='Home' component={Home} />
-                    <Stack.Screen options={{ headerShown: false }} name='ListMusic' component={ListMusic} />
-                    <Stack.Screen options={{ headerShown: false }} name='Played' component={Played} />
-                  </Stack.Navigator>
 
-                )}
-              </Tab.Screen>
-               <Tab.Screen options={{ headerShown: false }} name='TabSearch'>
-            {() => (
-              <Stack.Navigator >
-                <Stack.Screen options={{ headerShown: false }} name='Search' component={Search} />
 
-              </Stack.Navigator>
-            )}
-          </Tab.Screen>
 
-        </Tab.Navigator>
-          )
+
+        )
         }
-              {/* <Tab.Screen options={{ headerShown: false }} name='TabHome' >
-                {() => (
-                  <Stack.Navigator >
-
-                    <Stack.Screen options={{ headerShown: false }} name="Welcome" component={Welcome} />
-                    <Stack.Screen options={{ headerShown: false }} name="Login" component={Login} />
-                    <Stack.Screen options={{ headerShown: false }} name='Home' component={Home} />
-                    <Stack.Screen options={{ headerShown: false }} name='ListMusic' component={ListMusic} />
-                    <Stack.Screen options={{ headerShown: false }} name='Played' component={Played} />
-                  </Stack.Navigator>
-
-                )}
-                </Tab.Screen> */}
-        
-        
-
-         
 
 
         {(showPlayer.current) &&
@@ -321,11 +290,12 @@ export default function App({navigation}) {
 
             <View style={{
               position: "absolute",
-              bottom: 48,
-              left: 0,
-              backgroundColor: "#9999ff",
-              width: "100%",
+              bottom: 0,
+              left: 4,
+              backgroundColor: backcolor,
+              width: "98%",
               marginBottom: 0,
+              borderRadius: 10,
             }}>
               <View style={{
                 flexDirection: "row",
@@ -338,8 +308,8 @@ export default function App({navigation}) {
                   style={{
                     flexDirection: "row",
                     alignItems: "center",
-                    maxWidth: 370,
-                    minWidth: 370,
+                    maxWidth: 365,
+                    minWidth: 365,
 
 
                     // backgroundColor: "red",
@@ -347,18 +317,8 @@ export default function App({navigation}) {
                   }}>
                   <View style={{ flexDirection: "row", alignItems: "center" }}>
 
-                    <Image source={trackArtwork.current} style={{ width: 50, height: 50, }} />
-                    {/* <FlatList
-                      contentContainerStyle={{ alignSelf: 'flex-start' }}
-                      data={Tracks}
-                      renderItem={renderItem}
-                   
-                      keyExtractor={item => item}
-                      style={{ maxWidth:200}}
-                      horizontal
-                    
-                      showsHorizontalScrollIndicator={false}
-                      /> */}
+                    <Image source={{ uri: trackArtwork.current }} style={{ width: 45, height: 45, marginLeft: 5, marginRight: 10, marginBottom: 3, marginTop: 7, borderRadius: 10, }} />
+
 
                     <View >
                       <Text style={{ color: "#ffffff" }}>
@@ -375,7 +335,7 @@ export default function App({navigation}) {
 
                 <TouchableOpacity
                   onPress={() => PlayBack(playbackState)}
-                  style={{ marginRight: 20 }}
+                  style={styles.btn_close}
                 >
 
                   <Icon
@@ -389,6 +349,7 @@ export default function App({navigation}) {
 
               </View>
 
+              <ProgressBar progress={progress.position / progress.duration} color={"#FFFFFF"} style={{ marginLeft: 10, marginBottom: 1, width: "95%", height: 2.5 }} />
             </View>
 
             <BottomSheet
@@ -397,18 +358,31 @@ export default function App({navigation}) {
                 setShow(false);
               }}
               enableBackdropDismiss
+              color={backcolor}
             >
+              <View style={styles.ViewbackgroundVideo}>
+                {/* <Video
+                source={{ uri: "https://firebasestorage.googleapis.com/v0/b/react-music-b727c.appspot.com/o/blackpinkcrop.mp4?alt=media&token=b90cdaaf-3f95-45df-98c3-423cdcce370c" }}
+                style={styles.backgroundVideo}
+                muted={true}
+                repeat={true}
+                resizeMode={'cover'}
+                rate={1.0}
+                ignoreSilentSwitch={'obey'}
+                /> */}
+              </View>
               <View style={{ flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
 
-                <Image source={trackArtwork.current} style={{ width: "90%", height: 350, marginTop: 40, marginBottom: 20, }} />
-
+                {/* <View style={{ height:450,}}/> */}
+                <Image source={{ uri: trackArtwork.current }} style={{ width: "90%", height: 350, marginTop: 40, marginBottom: 20, }} />
                 <Text style={{ color: "white", fontSize: 20, fontWeight: "800" }}>
-                  {trackArtist.current}
-                </Text>
-                <Text style={{ color: "white", fontSize: 18, fontWeight: "400" }}>
                   {trackTitle.current}
                 </Text>
-                <View style={{ flexDirection: 'column', width: "90%", marginTop: 20, }}>
+                <Text style={{ color: "#d9d9d9", fontSize: 16, fontWeight: "600" }}>
+                  {trackArtist.current}
+                </Text>
+
+                <View style={{ flexDirection: 'column', width: "90%", marginTop: 20 }}>
                   <Slider
                     style={{ width: "100%", height: 15 }}
                     value={progress.position}
@@ -417,6 +391,7 @@ export default function App({navigation}) {
                     minimumTrackTintColor="white"
                     maximumTrackTintColor="rgb(217, 217, 217)"
                     thumbTintColor="white"
+                    size={1}
                     onValueChange={(value) => {
                       // progress.position = value
                       // console.log("value =" + progress.position)
@@ -446,7 +421,7 @@ export default function App({navigation}) {
 
                 </View>
 
-                <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "center", }}>
+                <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "center", marginBottom: 50 }}>
                   <TouchableOpacity onPress={() => SkipBack()}
                   // style={{ marginRight: 50 }}
                   >
@@ -455,20 +430,27 @@ export default function App({navigation}) {
                       name="step-backward"
                       type='font-awesome'
                       color='#f2f2f2'
-                      size={35}
+                      size={32}
 
                     />
                   </TouchableOpacity>
 
                   <TouchableOpacity onPress={() => PlayBack(playbackState)}
-                    style={{ marginRight: 80, marginLeft: 80 }}
+                    style={{
+                      marginRight: 75, marginLeft: 75, backgroundColor: "rgb(255, 255, 255)",
+                      paddingLeft: 20,
+                      paddingVertical: 16,
+                      borderRadius: 75,
+                      maxHeight: 58, minHeight: 58
+                      , maxWidth: 60, minWidth: 60
+                    }}
                   >
 
                     <Icon
                       name={btnPlayer}
                       type='font-awesome'
-                      color='white'
-                      size={35}
+                      color='black'
+                      size={25}
 
                     />
                   </TouchableOpacity>
@@ -480,9 +462,52 @@ export default function App({navigation}) {
                       name="step-forward"
                       type='font-awesome'
                       color='white'
-                      size={35}
+                      size={32}
                     />
                   </TouchableOpacity>
+                </View>
+                <View style={{ flexDirection: "row" }}>
+                  <View style={{ maxWidth: 30, minWidth: 30 }}>
+                    {parseInt(volumemusic * 100) <= 0 &&
+                      <Icon
+                        name="volume-off"
+                        type='font-awesome'
+                        color='#f2f2f2'
+                        size={30}
+
+                      />
+                    }
+                    {(parseInt(volumemusic * 100) >= 1 && parseInt(volumemusic * 100) < 75) &&
+                      <Icon
+                        name="volume-down"
+                        type='font-awesome'
+                        color='#f2f2f2'
+                        size={30}
+
+                      />
+                    }
+                    {parseInt(volumemusic * 100) >= 75 &&
+                      <Icon
+                        name="volume-up"
+                        type='font-awesome'
+                        color='#f2f2f2'
+                        size={30}
+
+                      />
+                    }
+                  </View>
+                  {/* <Text>{parseInt(volumemusic * 100)}%</Text> */}
+                  <Slider
+                    style={{ width: "60%", height: 30, marginLeft: 0 }}
+                    value={0.5}
+                    minimumValue={0}
+                    maximumValue={1}
+                    minimumTrackTintColor="white"
+                    maximumTrackTintColor="rgb(217, 217, 217)"
+                    thumbTintColor="white"
+                    onValueChange={value => setVolume_Music(value)}
+                  />
+
                 </View>
               </View>
 
@@ -498,19 +523,28 @@ export default function App({navigation}) {
   );
 };
 
-{/* <NavigationContainer theme={DarkTheme}>
-  <Tab.Navigator>
-    <Stack.Navigator >
-      <Stack.Screen options={{ title: 'เข้าสู่ระบบ' }} name='Login' component={HomeStack} />
-      <Stack.Screen options={{ headerShown: false }} name='Played' component={Played} />
-      <Stack.Screen options={{ headerShown: false }} name='Home' component={Home} />
-      <Stack.Screen options={{ headerShown: false }} name='ListMusic' component={ListMusic} />
-    </Stack.Navigator>
-  </Tab.Navigator>
-</NavigationContainer> */}
+
 
 const styles = StyleSheet.create({
+  backgroundVideo: {
+    width: "100%",
+    height: '100%',
+    zIndex: -1,
+    position: 'absolute',
 
+  },
+  ViewbackgroundVideo: {
+    width: "100%",
+    height: '100%',
+    zIndex: 0,
+    position: 'absolute',
+    opacity: 0.4,
+    backgroundColor: "black"
+  },
+  btn_close: {
+    marginRight: 20,
+
+  }
 });
 
 

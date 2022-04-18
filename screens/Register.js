@@ -1,6 +1,6 @@
 import {
     View, StyleSheet, TextInput, KeyboardAvoidingView, ImageBackground,
-    Image, Alert, TouchableOpacity
+  Image, Alert, TouchableOpacity, Keyboard
   } from 'react-native';
   import React, {useLayoutEffect, useState} from 'react';
 import { Button, Input, Text } from 'react-native-elements';
@@ -8,12 +8,12 @@ import { auth } from '../firebase';
   import { createUserWithEmailAndPassword } from 'firebase/auth';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-
+import LottieView from 'lottie-react-native';
   const Register = ({navigation}) => {
     // const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-  
+    const [loginPending, setLoginPending] = useState(false);
       const authen = auth;
     
     useLayoutEffect(() => {
@@ -21,14 +21,15 @@ import Icon from 'react-native-vector-icons/FontAwesome';
     }, []);
   
     const create_account = () => {
+      Keyboard.dismiss()
+      setLoginPending(true)
         createUserWithEmailAndPassword(authen, email, password)
       .then((authUser) => {
-        console.log('Account created!')
-        const user = authUser.user;
-        console.log(user)
+        setLoginPending(false)
+        Alert.alert("สมัครสมาชิกสำเร็จ")
       })
       .catch(error => {
-        console.log(error)
+        setLoginPending(false)
         Alert.alert(error.message)
       })
     };
@@ -38,7 +39,20 @@ import Icon from 'react-native-vector-icons/FontAwesome';
         <ImageBackground
           source={require('../image/register.png')}
           resizeMode="cover"
-                style={{ width: '100%', height: '100%' }}>
+          style={{ width: '100%', height: '100%' }}>
+          
+          {loginPending &&
+            <View style={[StyleSheet.absoluteFillObject, styles.container_spiner]}>
+
+
+            </View>
+
+
+
+          }
+          {loginPending && <LottieView style={styles.spiner} source={require('../image/loader_logo.json')} autoPlay loop />
+
+          }
                 <TouchableOpacity style={{ alignItems: "flex-start", marginLeft: 20, marginTop: 50 }}>
                     <Icon
 
@@ -116,6 +130,17 @@ import Icon from 'react-native-vector-icons/FontAwesome';
       fontSize: 20,
       color: 'white',
     },
+    
+    container_spiner: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgb(46, 46, 46)',
+    zIndex: 1,
+    opacity: 0.6,
+  },
+    spiner: {
+    zIndex: 2,
+  }
   });
   
   export default Register;

@@ -2,7 +2,7 @@ import React, { Component, useEffect, useState } from 'react';
 import {
     SafeAreaView, ScrollView, StatusBar, StyleSheet,
     Text, View, Button, TouchableOpacity, ImageBackground,
-    FlatList, Image, Alert
+    FlatList, Image, Alert, Pressable
 } from 'react-native';
 
 import TrackPlayer, {
@@ -20,12 +20,16 @@ import { auth } from '../firebase';
 import { signOut } from 'firebase/auth';
 import { getDatabase, ref, onValue } from "firebase/database";
 
-const Home = ({  navigation }) => {
-   
+import LottieView from 'lottie-react-native';
+import LinearGradient from 'react-native-linear-gradient';
+const Home = ({ navigation }) => {
+
 
     const [show, setShow] = useState(false);
+    const [dataartist, setDataartist] = useState(null);
+
     const authen = auth;
-    
+
     const SignOut = () => {
         Alert.alert(
             "ออกจากระบบ",
@@ -33,65 +37,120 @@ const Home = ({  navigation }) => {
             [
                 {
                     text: "ยกเลิก",
-                    
+
                     style: "cancel"
                 },
                 {
-                    text: "ออกจากระบบ", onPress: () => 
-                    signOut(authen).then(() => {
-                        TrackPlayer.stop();
-                        console.log("signout");
-                    }).catch((error) => {
-                        alert(error.message)
-                    }) }
+                    text: "ออกจากระบบ", onPress: () =>
+                        signOut(authen).then(() => {
+                            TrackPlayer.stop();
+                            console.log("signout");
+                        }).catch((error) => {
+                            alert(error.message)
+                        })
+                }
             ]
         );
-        
+
     }
     // const SignOut = () => {
     //     global.app.setState({logined:false});
     //     this.setState({});
     // }
 
-    const getdata = () => {
-        const db = getDatabase();
-        const starCountRef = ref(db, 'listmusic/');
-        onValue(starCountRef, (snapshot) => {
-
-            const data = snapshot;
-            console.log(data);
-            // return this.showmsg = data;
-        });
-    };
     useEffect(() => {
 
-      
+        const db = getDatabase();
+        const starCountRef = ref(db, 'listartist/');
+        onValue(starCountRef, (snapshot) => {
 
-  },[])
-   
-    const renderItem = ({ item }) => {
-        return (
+            const data = snapshot.val();
+            // console.log(data);
+            setDataartist(data)
 
-            <TouchableOpacity onPress={() => getdata()
-            }>  
-                <View style={{ alignItems: "center", marginHorizontal: 10, }} >
-                <StatusBar barStyle="light-content"/>
-                <Image source={item.artwork} style={{ width: 150, height: 150 }} />
-                <View style={{ alignItems: "center", marginVertical: 5 }}>
-                    <Text style={{ color: "#ffffff"}}>
-                        {item.artist}
-                    </Text>
-                    <Text style={{ color: "#ffffff" }}>
-                        {item.title}
+            // return this.showmsg = data;
+        });
+
+    }, [])
+    const List_artist = ({ items }) => {
+        // console.log(items);
+        let list = [];
+        let listname = ['นักร้องยอดนิยม', 'แนะนำสำหรับวันนี้']
+        let count = 0;
+
+        for (const item in items) {
+            // console.log("------------------------------------------------------------------"); 
+            // console.log(items[item]);  
+
+
+
+            list.push(
+                <View>
+                    <FlatList
+                        horizontal
+                        data={items[item]}
+                        renderItem={renderItem}
+                        showsHorizontalScrollIndicator={false}
+                        style={styles.flatlist}
+                    />
+                    <Text style={{ textAlign: "left", color: "#ffffff", fontSize: 22, fontWeight: "800", fontFamily: 'Roboto', marginLeft: 25 }}>
+                        {listname[count]}
                     </Text>
                 </View>
+            );
+
+
+
+
+            count++;
+
+        }
+
+        return (
+            <View>
+                {list}
+
 
             </View>
+        )
+
+    }
+    const renderItem = ({ item }) => {
+        // console.log("------------------------------------------------------------------");  
+
+
+        // console.log(item);
+        return (
+
+
+            <TouchableOpacity onPress={() => navigation.navigate('ListMusic', {
+                nameartist: item.name,
+                photo_uri: item.picture,
+                color: item.color,
+                nameshow: item.nameshow
+
+            })}
+                style={{ marginHorizontal: 10, marginVertical: 15 }}
+            >
+                <View style={{ alignItems: "center", }} >
+                    <StatusBar barStyle="light-content" />
+                    <Image source={{ uri: item.picture }} style={{ width: 150, height: 150, borderRadius: 30, }} />
+
+                    <View style={{ alignItems: "center", marginTop: 10 }}>
+                        <Text style={{ color: "#ffffff" }}>
+                            {item.nameshow}
+
+                        </Text>
+
+                    </View>
+
+                </View>
             </TouchableOpacity>
+
         );
     }
     return (
-        
+
         // <ImageBackground source={require('../image/back-index.png')}
         //     style={{
         //         width: '100%',
@@ -99,49 +158,62 @@ const Home = ({  navigation }) => {
         //         paddingBottom: 0,
         //         margin:0
         //         }}>
-   
-        <View style={styles.container}>
+        <LinearGradient colors={['#004d1a', '#001a09', '#000000']} style={styles.container}>
+            {/* <View style={styles.container}> */}
+            {dataartist == null &&
+                <View style={[StyleSheet.absoluteFillObject, styles.container_spiner]}>
+
+
+                </View>
+            }
+            {dataartist == null &&
+                <LottieView style={styles.spiner} source={require('../image/loader_logo.json')} autoPlay loop />
+            }
             <ScrollView>
                 <View style={{ height: 50 }} />
-                
+
                 <StatusBar translucent backgroundColor='transparent' />
-                
-             <TouchableOpacity style={{ alignItems: "flex-end", marginRight: 10, marginTop: 10 }}>
-                 <Icon
+                <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between", marginVertical: 15 }}>
+                    <Text style={{ textAlign: "left", color: "#ffffff", fontSize: 22, fontWeight: "800", fontFamily: 'Roboto', marginLeft: 25 }}>
+                        เพลงแนะนำ
+                    </Text>
+                    <TouchableOpacity style={{ marginRight: 25 }}>
+                        <Icon
 
-                    name='sign-out'
-                    type='font-awesome'
-                    color='#ffffff'
+                            name='sign-out'
+                            type='font-awesome'
+                            color='#ffffff'
 
-                    size={30}
-                    onPress={SignOut}
-                />
-            </TouchableOpacity>
-        <Text style={{ textAlign: "left", color: "#ffffff", fontSize: 22, fontWeight: "800", marginLeft: 10 }}>สวัสดีตอนเย็น</Text>
-           
-        <View style={{ marginVertical: 10 }}>
-            <FlatList
-                horizontal
-                data={Tracks}
-                renderItem={renderItem}
-                //   keyExtractor={(item) => item}
-                showsHorizontalScrollIndicator={false}
-                />
-            </View>
-            
-           
+                            size={30}
+                            onPress={SignOut}
+                        />
+                    </TouchableOpacity>
 
-            
+
+                </View>
+
+
+
+                {dataartist != null &&
+                    <View style={{ marginVertical: 10 }}>
+
+                        <List_artist items={dataartist} />
+
+
+                    </View>
+                }
+
+
             </ScrollView>
-            </View> 
-         
-        
-    // </ImageBackground>
-       
+            {/* </View>  */}
+
+
+            {/* // </ImageBackground> */}
+        </LinearGradient >
     )
 }
 
-export default Home
+export default Home;
 
 const styles = StyleSheet.create({
     container: {
@@ -151,4 +223,15 @@ const styles = StyleSheet.create({
         flexGrow: 2,
         // backgroundColor: "#000000"
     },
+    container_spiner: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'rgb(46, 46, 46)',
+        zIndex: 1,
+        opacity: 0.6,
+    },
+    spiner: {
+        zIndex: 2,
+    },
+
 })

@@ -1,6 +1,6 @@
 import {
     StyleSheet, Text, View, KeyboardAvoidingView,
-    TextInput, StatusBar, ImageBackground, Dimensions, TouchableOpacity
+    TextInput, StatusBar, ImageBackground, Dimensions, TouchableOpacity,Image,Keyboard
 } from 'react-native'
 import { Button } from 'react-native-elements';
 import React, { useState, useEffect } from 'react'
@@ -8,10 +8,16 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase"
 import Video from 'react-native-video';
 import Icon from 'react-native-vector-icons/FontAwesome';
+
+import LottieView from 'lottie-react-native';
+import LinearGradient from 'react-native-linear-gradient';
+
 const Login = ({ navigation }) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const authen = auth;
+
+    const [loginPending, setLoginPending] = useState(false);
  
     // useEffect(() => {
     //     // const auth = getAuth();
@@ -24,19 +30,35 @@ const Login = ({ navigation }) => {
     // }, []);
 
     const signIn = () => {
+        Keyboard.dismiss()
+        setLoginPending(true)
         signInWithEmailAndPassword(authen, email, password)
             .then(() => {
-                console.log("success");
+                setLoginPending(false)
+              
             }).catch((error) => {
+                setLoginPending(false)
                 alert(error)
             })
     }
     return (
-        <KeyboardAvoidingView enabled style={styles.container}>
-            <StatusBar translucent backgroundColor='transparent' barStyle="dark-content" />
-            <View style={{ flex: 1 }}>
+  
+        <View style={styles.container}>
+            {loginPending &&
+                <View style={[StyleSheet.absoluteFillObject, styles.container_spiner]}>
+                       
+                      
+                </View>
+
+            }
+            {loginPending && <LottieView style={styles.spiner} 
+                source={require('../image/loader_logo.json')} autoPlay loop />
+                
+            }
+            <StatusBar translucent backgroundColor='transparent' barStyle="light-content" />
+            <View>
                 <Video
-                    source={require('../image/blackpinkcrop.mp4')}
+                    source={{ uri:"https://firebasestorage.googleapis.com/v0/b/react-music-b727c.appspot.com/o/blackpinkcrop.mp4?alt=media&token=b90cdaaf-3f95-45df-98c3-423cdcce370c"}}
                     style={styles.backgroundVideo}
                     muted={true}
                     repeat={true}
@@ -56,7 +78,7 @@ const Login = ({ navigation }) => {
                     />
                 </TouchableOpacity>
                 <View style={styles.container}>
-
+                    <Image source={require('../image/music_icon.png')}  style={{ width: 200, height: 200 }} />
                     <TextInput
                         style={styles.input}
                         placeholder="อีเมล"
@@ -96,7 +118,7 @@ const Login = ({ navigation }) => {
 
             {/* <View style={{ height: 20 }} /> */}
 
-        </KeyboardAvoidingView>
+        </View>
     )
 }
 export default Login;
@@ -105,8 +127,8 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: 'center',
-        justifyContent: 'center',
-        zIndex:1
+        // justifyContent: 'center',
+        
     },
     // inputContainer: {
     //     width: 300,
@@ -136,5 +158,17 @@ const styles = StyleSheet.create({
         // right: 0,
         // bottom: 0,
         left: -31,
+        opacity : 5,
     },
+    container_spiner: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'rgb(46, 46, 46)',
+        zIndex: 1,
+        opacity : 0.6,
+    },
+    spiner: {
+        zIndex: 2,
+        
+    }
 });

@@ -1,0 +1,585 @@
+{
+  "listartist": [
+    [
+      {
+        "name": "arianagrande",
+        "nameshow": "Ariana Grande",
+        "color": "#e81a9c",
+        "picture": "https://firebasestorage.googleapis.com/v0/b/react-music-b52e8.appspot.com/o/music%2Farianagrande%2Fariana.png?alt=media&token=16658522-084b-4357-a778-a5d0e5f9f7bc"
+      },
+      {
+        "name": "blackpink",
+        "nameshow": "BLACKPINK",
+        "color": "#990099",
+        "picture": "https://firebasestorage.googleapis.com/v0/b/react-music-b52e8.appspot.com/o/music%2Fblackpink%2Fblackpink.jpg?alt=media&token=802eef56-aa26-4bf8-a561-8ee96c3e00e0"
+      },
+      {
+        "name": "fhero",
+        "nameshow": "F.HERO",
+        "color": "#5a8db0",
+        "picture": "https://firebasestorage.googleapis.com/v0/b/react-music-b52e8.appspot.com/o/music%2Ffhero%2FF.hero.png?alt=media&token=6ae737d9-af10-48fe-ae0d-61e54455c943"
+      }
+    ],
+    [
+      {
+        "name": "linkinpark",
+        "nameshow": "Linkin Park",
+        "color": "#2fb7e0",
+        "picture": "https://firebasestorage.googleapis.com/v0/b/react-music-b52e8.appspot.com/o/music%2Flinkinpark%2Fchester-linkinpark2.png?alt=media&token=08bbf2d5-8943-4cdb-961d-72a81175f610"
+      },
+      {
+        "name": "milli",
+        "nameshow": "MILLI",
+        "color": "#d41333",
+        "picture": "https://firebasestorage.googleapis.com/v0/b/react-music-b52e8.appspot.com/o/music%2Fmilli%2Fmilli.png?alt=media&token=0725f4f0-b539-499b-99f4-9b6c05f101f8"
+      },
+      {
+        "name": "onemill",
+        "nameshow": "1MILL",
+        "color": "#F5DEB3",
+        "picture": "https://firebasestorage.googleapis.com/v0/b/react-music-b727c.appspot.com/o/music%2Fonemill%2F1mill.png?alt=media&token=f1793df5-015d-4d94-9120-a9831a98095b"
+      }
+    ],
+    [
+      {
+      "name": "postmalone",
+      "nameshow": "Post Malone",
+      "color": "#e3c866",
+      "picture": "https://firebasestorage.googleapis.com/v0/b/react-music-b52e8.appspot.com/o/music%2Fpostmalone%2Fcircle.jpg?alt=media&token=f37db32f-7850-4736-9b40-0516af150cec"
+      },
+      {
+        "name": "youngohm",
+        "nameshow": "YoungOhm",
+        "color": "#9630fc",
+        "picture": "https://firebasestorage.googleapis.com/v0/b/react-music-b52e8.appspot.com/o/music%2Fyoungohm%2Fyoungohm.png?alt=media&token=0ef07072-0af2-4e4c-a4d3-26f054f5d4de"
+      }
+    ]
+],
+  "listmusic": {
+    "arianagrande": [
+      {
+        
+        "id":0,
+        "album": "",
+        "artist": "Ariana Grande",
+        "artwork": "https://firebasestorage.googleapis.com/v0/b/react-music-b52e8.appspot.com/o/music%2Farianagrande%2F7rings.jpg?alt=media&token=d22ce147-174e-48e0-80a6-bb9b473826b5",
+        "date": "",
+        "duration": 185,
+        "genre": "",
+        "title": "7 rings",
+        "url": "https://firebasestorage.googleapis.com/v0/b/react-music-b52e8.appspot.com/o/music%2Farianagrande%2FAriana%20Grande%20-%207%20rings.mp3?alt=media&token=cba3e920-1bb8-46b6-b38e-47c5f123c5d5"
+      },
+      {
+        
+        "id":1,
+        "album": "",
+        "artist": "Ariana Grande",
+        "artwork": "https://firebasestorage.googleapis.com/v0/b/react-music-b52e8.appspot.com/o/music%2Farianagrande%2F34%2B35.jpg?alt=media&token=81f41011-e805-4158-a583-1dbe1fcbef1f",
+        "date": "",
+        "duration": 221,
+        "genre": "",
+        "title": "34+35",
+        "url": "https://firebasestorage.googleapis.com/v0/b/react-music-b52e8.appspot.com/o/music%2Farianagrande%2FAriana%20Grande%20-%2034%2B35.mp3?alt=media&token=b9ae20dc-c261-4264-817f-603c71c6cb9a"
+      },
+      {
+        
+        "id":2,
+        "album": "",
+        "artist": "Ariana Grande",
+        "artwork": "https://firebasestorage.googleapis.com/v0/b/react-music-b52e8.appspot.com/o/music%2Farianagrande%2Fsidetoside.jpg?alt=media&token=dd91b962-401b-42dd-a6f9-077e069a34f4",
+        "date": "",
+        "duration": 238,
+        "genre": "",
+        "title": "Side To Side",
+        "url": "https://firebasestorage.googleapis.com/v0/b/react-music-b52e8.appspot.com/o/music%2Farianagrande%2FAriana%20Grande%20ft.%20Nicki%20Minaj%20-%20Side%20To%20Side.mp3?alt=media&token=1ce56d33-b8ea-433b-8295-32c37f5f68af"
+      }
+    ],
+    "blackpink": [
+      {
+        "id":3,
+        "album": "",
+        "artist": "BLACKPINK",
+        "artwork": "https://firebasestorage.googleapis.com/v0/b/react-music-b52e8.appspot.com/o/music%2Fblackpink%2Fddu-du-ddu-du.jpg?alt=media&token=b43340ff-b78e-4f27-92bb-baffaa0cfe8c",
+        "date": "",
+        "duration": 215,
+        "genre": "",
+        "title": "DDU-Du-DDU-Du",
+        "url": "https://firebasestorage.googleapis.com/v0/b/react-music-b52e8.appspot.com/o/music%2Fblackpink%2FBLACKPINK-DDU-DU-DDU-DU.mp3?alt=media&token=94461fa8-ea76-4dea-bb5e-c2dc0277882d"
+      },
+      {
+        "id":4,
+        "album": "",
+        "artist": "BLACKPINK",
+        "artwork": "https://firebasestorage.googleapis.com/v0/b/react-music-b52e8.appspot.com/o/music%2Fblackpink%2Fhowyoulikethat.jpg?alt=media&token=f54a53ab-c16e-4283-810e-bac452f355c4",
+        "date": "",
+        "duration": 183,
+        "genre": "",
+        "title": "How You Like That",
+        "url": "https://firebasestorage.googleapis.com/v0/b/react-music-b52e8.appspot.com/o/music%2Fblackpink%2FBLACKPINK-How%20You%20Like%20That.mp3?alt=media&token=40f99227-959d-4ab3-a62e-ddbfcb4dca4e"
+      },
+      {
+        "id":5,
+        "album": "",
+        "artist": "BLACKPINK",
+        "artwork": "https://firebasestorage.googleapis.com/v0/b/react-music-b52e8.appspot.com/o/music%2Fblackpink%2Fkillthislove.jpg?alt=media&token=2bc7efb1-4670-40ca-89cf-09f21963cb30",
+        "date": "",
+        "duration": 194,
+        "genre": "",
+        "title": "Kill This Love",
+        "url": "https://firebasestorage.googleapis.com/v0/b/react-music-b52e8.appspot.com/o/music%2Fblackpink%2FBLACKPINK-Kill%20This%20Love.mp3?alt=media&token=6eecb8e7-ec5c-41f1-922f-d636231acdda"
+      }
+    ],
+    "fhero": [
+      {
+        "id":6,
+        "album": "",
+        "artist": "F.HERO",
+        "artwork": "https://firebasestorage.googleapis.com/v0/b/react-music-b52e8.appspot.com/o/music%2Ffhero%2Fdoyou.jpg?alt=media&token=953dd99e-9c81-4442-9df4-36a6d15660c3",
+        "date": "",
+        "duration": 263,
+        "genre": "",
+        "title": "Do You",
+        "url": "https://firebasestorage.googleapis.com/v0/b/react-music-b52e8.appspot.com/o/music%2Ffhero%2FF.HERO%20Ft.%20BamBam%20From%20GOT7%20-Do%20You.mp3?alt=media&token=a85cf400-69eb-4748-ad7e-263dc1a1950a"
+      },
+      {
+        "id":7,
+        "album": "",
+        "artist": "F.HERO",
+        "artwork": "https://firebasestorage.googleapis.com/v0/b/react-music-b52e8.appspot.com/o/music%2Ffhero%2Fmecarao.jpg?alt=media&token=80f4b703-201b-43eb-8e55-7682899d8b0f",
+        "date": "",
+        "duration": 307,
+        "genre": "",
+        "title": "มีแค่เรา",
+        "url": "https://firebasestorage.googleapis.com/v0/b/react-music-b52e8.appspot.com/o/music%2Ffhero%2FF.HERO%20Ft.%20LAZYLOXY%20_%20OG-ANIC-%E0%B8%A1%E0%B8%B5%E0%B9%81%E0%B8%84%E0%B9%88%E0%B9%80%E0%B8%A3%E0%B8%B2.mp3?alt=media&token=8ff17b97-ab16-4b01-87f8-86432a07032e"
+      },
+      {
+        "id":8,
+        "album": "",
+        "artist": "F.HERO",
+        "artwork": "https://firebasestorage.googleapis.com/v0/b/react-music-b52e8.appspot.com/o/music%2Ffhero%2FFymme.jpg?alt=media&token=9bcd6401-76b4-42b5-91bd-d8145a66e377",
+        "date": "",
+        "duration": 294,
+        "genre": "",
+        "title": "เสือสิ้นลาย",
+        "url": "https://firebasestorage.googleapis.com/v0/b/react-music-b52e8.appspot.com/o/music%2Ffhero%2FF.HERO%20Ft.%20P-Hot%2C%20YOUNGOHM%2C%20FYMME-%E0%B9%80%E0%B8%AA%E0%B8%B7%E0%B8%AD%E0%B8%AA%E0%B8%B4%E0%B9%89%E0%B8%99%E0%B8%A5%E0%B8%B2%E0%B8%A2.mp3?alt=media&token=d85c3a99-9373-4f88-88fa-4209abdc3164"
+      }
+    ],
+    "linkinpark": [
+      {
+        "id":9,
+        "album": "",
+        "artist": "Linkin Park",
+        "artwork": "https://firebasestorage.googleapis.com/v0/b/react-music-b52e8.appspot.com/o/music%2Flinkinpark%2FIntheEnd.jpg?alt=media&token=e0aca398-f3f7-4461-b3f9-79a6d07ace9c",
+        "date": "",
+        "duration": 218,
+        "genre": "",
+        "title": "In The End",
+        "url": "https://firebasestorage.googleapis.com/v0/b/react-music-b52e8.appspot.com/o/music%2Flinkinpark%2FIn%20The%20End-Linkin%20Park.mp3?alt=media&token=9b30536f-53a9-410a-8315-02bbe2282c1a"
+      },
+      {
+        "id":10,
+        "album": "",
+        "artist": "Linkin Park",
+        "artwork": "https://firebasestorage.googleapis.com/v0/b/react-music-b52e8.appspot.com/o/music%2Flinkinpark%2Fnewdivide.jpg?alt=media&token=ee327272-018d-4998-882e-8a8f02b1f5c5",
+        "date": "",
+        "duration": 268,
+        "genre": "",
+        "title": "New Divide",
+        "url": "https://firebasestorage.googleapis.com/v0/b/react-music-b52e8.appspot.com/o/music%2Flinkinpark%2FNew%20Divide-Linkin%20Park.mp3?alt=media&token=1ef63b1f-f54f-4954-a58f-02fa7c59bc01"
+      },
+      {
+        "id":11,
+        "album": "",
+        "artist": "Linkin Park",
+        "artwork": "https://firebasestorage.googleapis.com/v0/b/react-music-b52e8.appspot.com/o/music%2Flinkinpark%2Fnumb.jpg?alt=media&token=5110ab46-c9fa-49ec-914d-22617acf3784",
+        "date": "",
+        "duration": 186,
+        "genre": "",
+        "title": "Numb",
+        "url": "https://firebasestorage.googleapis.com/v0/b/react-music-b52e8.appspot.com/o/music%2Flinkinpark%2FNumb-Linkin%20Park.mp3?alt=media&token=045cf534-89b6-4a11-a177-b96f9efd4008"
+      }
+    ],
+    "milli": [
+      {
+        "id":12,
+        "album": "",
+        "artist": "Milli x F.HERO",
+        "artwork": "https://firebasestorage.googleapis.com/v0/b/react-music-b52e8.appspot.com/o/music%2Fmilli%2Fmirrormirror.jpg?alt=media&token=209e1db2-4a15-4c13-85d6-11ccc0daa45e",
+        "date": "",
+        "duration": 254,
+        "genre": "",
+        "title": "Mirror Mirror",
+        "url": "https://firebasestorage.googleapis.com/v0/b/react-music-b52e8.appspot.com/o/music%2Fmilli%2FF.HEROxMILLI_Mirror_Mirror.mp3?alt=media&token=9376a168-80b0-4493-8495-a58bccf0ec29"
+      },
+      {
+        "id":13,
+        "album": "",
+        "artist": "Milli",
+        "artwork": "https://firebasestorage.googleapis.com/v0/b/react-music-b52e8.appspot.com/o/music%2Fmilli%2Fpakkon.jpg?alt=media&token=db3365c1-5598-438a-9111-180a672eac16",
+        "date": "",
+        "duration": 208,
+        "genre": "",
+        "title": "พักก่อน",
+        "url": "https://firebasestorage.googleapis.com/v0/b/react-music-b52e8.appspot.com/o/music%2Fmilli%2FMILLI-%E0%B8%9E%E0%B8%B1%E0%B8%81%E0%B8%81%E0%B9%88%E0%B8%AD%E0%B8%99.mp3?alt=media&token=3412b98d-4d0e-41b2-a69d-33e1dc07e4b3"
+      },
+      {
+        "id":14,
+        "album": "",
+        "artist": "Milli",
+        "artwork": "https://firebasestorage.googleapis.com/v0/b/react-music-b52e8.appspot.com/o/music%2Fmilli%2Fsudpung.jpeg?alt=media&token=3467cfaa-d554-45db-86a4-469a64961b39",
+        "date": "",
+        "duration": 221,
+        "genre": "",
+        "title": "สุดปัง",
+        "url": "https://firebasestorage.googleapis.com/v0/b/react-music-b52e8.appspot.com/o/music%2Fmilli%2FMILLI-%E0%B8%AA%E0%B8%B8%E0%B8%94%E0%B8%9B%E0%B8%B1%E0%B8%87.mp3?alt=media&token=0cdf3d6d-f773-4b8e-a0e2-b67cf2e7ad84"
+      }
+    ],
+    "onemill": [
+      {
+        "id":15,
+        "album": "Painkiller 1mill",
+        "artist": "1MILL",
+        "artwork": "https://firebasestorage.googleapis.com/v0/b/react-music-b52e8.appspot.com/o/music%2Fonemill%2Fkapow.jpg?alt=media&token=89b24b25-fadb-414e-a0ec-caf7c4d5e484",
+        "date": "",
+        "duration": 161,
+        "genre": "",
+        "title": "KAPOW",
+        "url": "https://firebasestorage.googleapis.com/v0/b/react-music-b52e8.appspot.com/o/music%2Fonemill%2FKAPOW.mp3?alt=media&token=390b4268-7a40-4dbe-875b-9add09c2ac9a"
+      },
+      {
+        "id":16,
+        "album": "Painkiller 1mill",
+        "artist": "1MILL",
+        "artwork": "https://firebasestorage.googleapis.com/v0/b/react-music-b52e8.appspot.com/o/music%2Fonemill%2Ftonyjaa.jpg?alt=media&token=0797dda8-0f24-48c1-b53d-5e3316523340",
+        "date": "",
+        "duration": 196,
+        "genre": "",
+        "title": "TONYJA",
+        "url": "https://firebasestorage.googleapis.com/v0/b/react-music-b52e8.appspot.com/o/music%2Fonemill%2FTONYJAA.mp3?alt=media&token=cc162064-1d89-4fd0-a30a-4f6b26503ad9"
+      },
+      {
+        "id":17,
+        "album": "Painkiller 1mill",
+        "artist": "1MILL",
+        "artwork": "https://firebasestorage.googleapis.com/v0/b/react-music-b52e8.appspot.com/o/music%2Fonemill%2Fwarzone.jpg?alt=media&token=6eb0b687-be0f-4080-a94d-6c76e93af7d2",
+        "date": "",
+        "duration": 180,
+        "genre": "",
+        "title": "WARZONE",
+        "url": "https://firebasestorage.googleapis.com/v0/b/react-music-b52e8.appspot.com/o/music%2Fonemill%2FWARZONE.mp3?alt=media&token=a7604f83-16e6-4dc8-ae37-91e5c4d18ff4"
+      }
+    ],
+    "postmalone": [
+      {
+        "id":18,
+        "album": "",
+        "artist": "Post Malone",
+        "artwork": "https://firebasestorage.googleapis.com/v0/b/react-music-b52e8.appspot.com/o/music%2Fpostmalone%2Fcircle.jpg?alt=media&token=f37db32f-7850-4736-9b40-0516af150cec",
+        "date": "",
+        "duration": 215,
+        "genre": "",
+        "title": "Cicles",
+        "url": "https://firebasestorage.googleapis.com/v0/b/react-music-b52e8.appspot.com/o/music%2Fpostmalone%2FPost%20Malone-Circles.mp3?alt=media&token=43b10efb-67c7-432e-86cf-879511530469"
+      },
+      {
+        "id":19,
+        "album": "",
+        "artist": "Post Malone",
+        "artwork": "https://firebasestorage.googleapis.com/v0/b/react-music-b52e8.appspot.com/o/music%2Fpostmalone%2Fcongratulation.jpg?alt=media&token=758e8d0f-2b2a-4a64-8d11-847b34faa4f6",
+        "date": "",
+        "duration": 227,
+        "genre": "",
+        "title": "Congratulations",
+        "url": "https://firebasestorage.googleapis.com/v0/b/react-music-b52e8.appspot.com/o/music%2Fpostmalone%2FPost%20Malone-Congratulations.mp3?alt=media&token=a193632f-b7b0-49ef-912f-ed056b183b12"
+      },
+      {
+        "id":20,
+        "album": "",
+        "artist": "Post Malone",
+        "artwork": "https://firebasestorage.googleapis.com/v0/b/react-music-b52e8.appspot.com/o/music%2Fpostmalone%2Fpsycho.jpg?alt=media&token=d1ff96c7-ee15-44d9-9015-902ba2e9cc75",
+        "date": "",
+        "duration": 221,
+        "genre": "",
+        "title": "Psycho",
+        "url": "https://firebasestorage.googleapis.com/v0/b/react-music-b52e8.appspot.com/o/music%2Fpostmalone%2FPost%20Malone-Psycho.mp3?alt=media&token=52115d31-62f3-4fbe-a877-50ab0138b513"
+      }
+    ],
+    "youngohm": [
+      {
+        "id":21,
+        "album": "",
+        "artist": "YOUNGOHM",
+        "artwork": "https://firebasestorage.googleapis.com/v0/b/react-music-b52e8.appspot.com/o/music%2Fyoungohm%2F%E0%B9%80%E0%B8%89%E0%B8%A2%E0%B9%80%E0%B8%A1%E0%B8%A2.jpg?alt=media&token=86ba7a19-5086-41d6-ba4b-c6b2958751ef",
+        "date": "",
+        "duration": 261,
+        "genre": "",
+        "title": "เฉยเมย",
+        "url": "https://firebasestorage.googleapis.com/v0/b/react-music-b52e8.appspot.com/o/music%2Fyoungohm%2FYOUNGOHM-%E0%B9%80%E0%B8%89%E0%B8%A2%E0%B9%80%E0%B8%A1%E0%B8%A2.mp3?alt=media&token=f4e8781a-f5f4-491c-9ebe-1fc66beea3bf"
+      },
+      {
+        "id":22,
+        "album": "",
+        "artist": "YOUNGOHM",
+        "artwork": "https://firebasestorage.googleapis.com/v0/b/react-music-b52e8.appspot.com/o/music%2Fyoungohm%2F%E0%B8%94%E0%B8%B9%E0%B9%84%E0%B8%A7%E0%B9%89.jpg?alt=media&token=9dd4b268-fb42-4da2-b309-755dc470170b",
+        "date": "",
+        "duration": 218,
+        "genre": "",
+        "title": "ดูไว้",
+        "url": "https://firebasestorage.googleapis.com/v0/b/react-music-b52e8.appspot.com/o/music%2Fyoungohm%2FYOUNGOHM-%E0%B8%94%E0%B8%B9%E0%B9%84%E0%B8%A7%E0%B9%89.mp3?alt=media&token=c06f2102-ab3d-44c4-8999-4ff18431c16e"
+      },
+      {
+        "id":23,
+        "album": "",
+        "artist": "YOUNGOHM",
+        "artwork": "https://firebasestorage.googleapis.com/v0/b/react-music-b52e8.appspot.com/o/music%2Fyoungohm%2F%E0%B9%84%E0%B8%9F%E0%B9%80%E0%B8%A2%E0%B9%87%E0%B8%99.jpg?alt=media&token=1f1a25c8-3baa-4ece-82b7-142e51e2238e",
+        "date": "",
+        "duration": 285,
+        "genre": "",
+        "title": "ไฟเย็น",
+        "url": "https://firebasestorage.googleapis.com/v0/b/react-music-b52e8.appspot.com/o/music%2Fyoungohm%2FYOUNGOHM-%E0%B9%84%E0%B8%9F%E0%B9%80%E0%B8%A2%E0%B9%87%E0%B8%99.mp3?alt=media&token=bb3f5f34-cc6a-4bf7-8538-8be4bcd6395b"
+      }
+    ]
+  }
+  ,"allmusic": [
+      {
+        "name":"arianagrande",
+        "id":0,
+        "artist": "Ariana Grande",
+        "artwork": "https://firebasestorage.googleapis.com/v0/b/react-music-b52e8.appspot.com/o/music%2Farianagrande%2F7rings.jpg?alt=media&token=d22ce147-174e-48e0-80a6-bb9b473826b5",
+        "duration": 185,
+        "title": "7 rings",
+        "color": "#e81a9c",
+        "url": "https://firebasestorage.googleapis.com/v0/b/react-music-b52e8.appspot.com/o/music%2Farianagrande%2FAriana%20Grande%20-%207%20rings.mp3?alt=media&token=cba3e920-1bb8-46b6-b38e-47c5f123c5d5"
+      },
+      {
+        "name":"arianagrande",
+        "id":1,
+        "artist": "Ariana Grande",
+        "artwork": "https://firebasestorage.googleapis.com/v0/b/react-music-b52e8.appspot.com/o/music%2Farianagrande%2F34%2B35.jpg?alt=media&token=81f41011-e805-4158-a583-1dbe1fcbef1f",
+        "duration": 221,
+        "title": "34+35",
+        "color": "#7916b2",
+        "url": "https://firebasestorage.googleapis.com/v0/b/react-music-b52e8.appspot.com/o/music%2Farianagrande%2FAriana%20Grande%20-%2034%2B35.mp3?alt=media&token=b9ae20dc-c261-4264-817f-603c71c6cb9a"
+      },
+      {
+        "name":"arianagrande",
+        "id":2,
+        "artist": "Ariana Grande",
+        "artwork": "https://firebasestorage.googleapis.com/v0/b/react-music-b52e8.appspot.com/o/music%2Farianagrande%2Fsidetoside.jpg?alt=media&token=dd91b962-401b-42dd-a6f9-077e069a34f4",
+        "duration": 238,
+        "title": "Side To Side",
+        "color": "#69f149",
+        "url": "https://firebasestorage.googleapis.com/v0/b/react-music-b52e8.appspot.com/o/music%2Farianagrande%2FAriana%20Grande%20ft.%20Nicki%20Minaj%20-%20Side%20To%20Side.mp3?alt=media&token=1ce56d33-b8ea-433b-8295-32c37f5f68af"
+      },
+      {
+        "name":"blackpink",
+        "id":3,
+        "artist": "BLACKPINK",
+        "artwork": "https://firebasestorage.googleapis.com/v0/b/react-music-b52e8.appspot.com/o/music%2Fblackpink%2Fddu-du-ddu-du.jpg?alt=media&token=b43340ff-b78e-4f27-92bb-baffaa0cfe8c",
+        "duration": 215,
+        "title": "DDU-Du-DDU-Du",
+        "color": "#990099",
+        "url": "https://firebasestorage.googleapis.com/v0/b/react-music-b52e8.appspot.com/o/music%2Fblackpink%2FBLACKPINK-DDU-DU-DDU-DU.mp3?alt=media&token=94461fa8-ea76-4dea-bb5e-c2dc0277882d"
+      },
+      {
+        "name":"blackpink",
+        "id":4,
+        "artist": "BLACKPINK",
+        "artwork": "https://firebasestorage.googleapis.com/v0/b/react-music-b52e8.appspot.com/o/music%2Fblackpink%2Fhowyoulikethat.jpg?alt=media&token=f54a53ab-c16e-4283-810e-bac452f355c4",
+        "duration": 183,
+        "title": "How You Like That",
+        "color": "#3dacb1",
+        "url": "https://firebasestorage.googleapis.com/v0/b/react-music-b52e8.appspot.com/o/music%2Fblackpink%2FBLACKPINK-How%20You%20Like%20That.mp3?alt=media&token=40f99227-959d-4ab3-a62e-ddbfcb4dca4e"
+      },
+      {
+        "name":"blackpink",
+        "id":5,
+        "artist": "BLACKPINK",
+        "artwork": "https://firebasestorage.googleapis.com/v0/b/react-music-b52e8.appspot.com/o/music%2Fblackpink%2Fkillthislove.jpg?alt=media&token=2bc7efb1-4670-40ca-89cf-09f21963cb30",
+        "duration": 194,
+        "title": "Kill This Love",
+        "color": "#d41333",
+        "url": "https://firebasestorage.googleapis.com/v0/b/react-music-b52e8.appspot.com/o/music%2Fblackpink%2FBLACKPINK-Kill%20This%20Love.mp3?alt=media&token=6eecb8e7-ec5c-41f1-922f-d636231acdda"
+      },
+      {
+        "name":"fhero",
+        "id":6,
+        "artist": "F.HERO",
+        "artwork": "https://firebasestorage.googleapis.com/v0/b/react-music-b52e8.appspot.com/o/music%2Ffhero%2Fdoyou.jpg?alt=media&token=953dd99e-9c81-4442-9df4-36a6d15660c3",
+        "duration": 263,
+        "title": "Do You",
+        "color": "#5a8db0",
+        "url": "https://firebasestorage.googleapis.com/v0/b/react-music-b52e8.appspot.com/o/music%2Ffhero%2FF.HERO%20Ft.%20BamBam%20From%20GOT7%20-Do%20You.mp3?alt=media&token=a85cf400-69eb-4748-ad7e-263dc1a1950a"
+      },
+      {
+        "name":"fhero",
+        "id":7,
+        "artist": "F.HERO",
+        "artwork": "https://firebasestorage.googleapis.com/v0/b/react-music-b52e8.appspot.com/o/music%2Ffhero%2Fmecarao.jpg?alt=media&token=80f4b703-201b-43eb-8e55-7682899d8b0f",
+        "duration": 307,
+        "title": "มีแค่เรา",
+        "color": "#5fb14c",
+        "url": "https://firebasestorage.googleapis.com/v0/b/react-music-b52e8.appspot.com/o/music%2Ffhero%2FF.HERO%20Ft.%20LAZYLOXY%20_%20OG-ANIC-%E0%B8%A1%E0%B8%B5%E0%B9%81%E0%B8%84%E0%B9%88%E0%B9%80%E0%B8%A3%E0%B8%B2.mp3?alt=media&token=8ff17b97-ab16-4b01-87f8-86432a07032e"
+      },
+      {
+        "name":"fhero",
+        "id":8,
+        "artist": "F.HERO",
+        "artwork": "https://firebasestorage.googleapis.com/v0/b/react-music-b52e8.appspot.com/o/music%2Ffhero%2FFymme.jpg?alt=media&token=9bcd6401-76b4-42b5-91bd-d8145a66e377",
+        "duration": 294,
+        "title": "เสือสิ้นลาย",
+        "color": "#1e7cba",
+        "url": "https://firebasestorage.googleapis.com/v0/b/react-music-b52e8.appspot.com/o/music%2Ffhero%2FF.HERO%20Ft.%20P-Hot%2C%20YOUNGOHM%2C%20FYMME-%E0%B9%80%E0%B8%AA%E0%B8%B7%E0%B8%AD%E0%B8%AA%E0%B8%B4%E0%B9%89%E0%B8%99%E0%B8%A5%E0%B8%B2%E0%B8%A2.mp3?alt=media&token=d85c3a99-9373-4f88-88fa-4209abdc3164"
+      },
+      {
+        "name": "linkinpark",
+        "id":9,
+        "artist": "Linkin Park",
+        "artwork": "https://firebasestorage.googleapis.com/v0/b/react-music-b52e8.appspot.com/o/music%2Flinkinpark%2FIntheEnd.jpg?alt=media&token=e0aca398-f3f7-4461-b3f9-79a6d07ace9c",
+        "duration": 218,
+        "title": "In The End",
+        "color": "#2fb7e0",
+        "url": "https://firebasestorage.googleapis.com/v0/b/react-music-b52e8.appspot.com/o/music%2Flinkinpark%2FIn%20The%20End-Linkin%20Park.mp3?alt=media&token=9b30536f-53a9-410a-8315-02bbe2282c1a"
+      },
+      {
+        "name": "linkinpark",
+        "id":10,
+        "artist": "Linkin Park",
+        "artwork": "https://firebasestorage.googleapis.com/v0/b/react-music-b52e8.appspot.com/o/music%2Flinkinpark%2Fnewdivide.jpg?alt=media&token=ee327272-018d-4998-882e-8a8f02b1f5c5",
+        "duration": 268,
+        "title": "New Divide",
+        "color": "#ba1ea8",
+        "url": "https://firebasestorage.googleapis.com/v0/b/react-music-b727c.appspot.com/o/music%2Flinkinpark%2FNew%20Divide-Linkin%20Park.mp3?alt=media&token=137976c7-1b31-4da7-bc4f-67080cb03a8b"
+      },
+      {
+        "name": "linkinpark",
+        "id":11,
+        "artist": "Linkin Park",
+        "artwork": "https://firebasestorage.googleapis.com/v0/b/react-music-b52e8.appspot.com/o/music%2Flinkinpark%2Fnumb.jpg?alt=media&token=5110ab46-c9fa-49ec-914d-22617acf3784",
+        "duration": 186,
+        "title": "Numb",
+        "color": "#b69046",
+        "url": "https://firebasestorage.googleapis.com/v0/b/react-music-b52e8.appspot.com/o/music%2Flinkinpark%2FNumb-Linkin%20Park.mp3?alt=media&token=045cf534-89b6-4a11-a177-b96f9efd4008"
+      },
+      {
+        "name":"milli",
+        "id":12,
+        "artist": "Milli x F.HERO",
+        "artwork": "https://firebasestorage.googleapis.com/v0/b/react-music-b52e8.appspot.com/o/music%2Fmilli%2Fmirrormirror.jpg?alt=media&token=209e1db2-4a15-4c13-85d6-11ccc0daa45e",
+        "duration": 254,
+        "title": "Mirror Mirror",
+        "color": "#d41333",
+        "url": "https://firebasestorage.googleapis.com/v0/b/react-music-b52e8.appspot.com/o/music%2Fmilli%2FF.HEROxMILLI_Mirror_Mirror.mp3?alt=media&token=9376a168-80b0-4493-8495-a58bccf0ec29"
+      },
+      {
+        "name":"milli",
+        "id":13,
+        "artist": "Milli",
+        "artwork": "https://firebasestorage.googleapis.com/v0/b/react-music-b52e8.appspot.com/o/music%2Fmilli%2Fpakkon.jpg?alt=media&token=db3365c1-5598-438a-9111-180a672eac16",
+        "duration": 208,
+        "title": "พักก่อน",
+        "color": "#990099",
+        "url": "https://firebasestorage.googleapis.com/v0/b/react-music-b52e8.appspot.com/o/music%2Fmilli%2FMILLI-%E0%B8%9E%E0%B8%B1%E0%B8%81%E0%B8%81%E0%B9%88%E0%B8%AD%E0%B8%99.mp3?alt=media&token=3412b98d-4d0e-41b2-a69d-33e1dc07e4b3"
+      },
+      {
+        "name":"milli",
+        "id":14,
+        "artist": "Milli",
+        "artwork": "https://firebasestorage.googleapis.com/v0/b/react-music-b52e8.appspot.com/o/music%2Fmilli%2Fsudpung.jpeg?alt=media&token=3467cfaa-d554-45db-86a4-469a64961b39",
+        "duration": 221,
+        "title": "สุดปัง",
+        "color": "#F5DEB3",
+        "url": "https://firebasestorage.googleapis.com/v0/b/react-music-b52e8.appspot.com/o/music%2Fmilli%2FMILLI-%E0%B8%AA%E0%B8%B8%E0%B8%94%E0%B8%9B%E0%B8%B1%E0%B8%87.mp3?alt=media&token=0cdf3d6d-f773-4b8e-a0e2-b67cf2e7ad84"
+      },
+      {
+        "name":"onemill",
+        "id":15,
+        "artist": "1MILL",
+        "artwork": "https://firebasestorage.googleapis.com/v0/b/react-music-b52e8.appspot.com/o/music%2Fonemill%2Fkapow.jpg?alt=media&token=89b24b25-fadb-414e-a0ec-caf7c4d5e484",
+        "duration": 161,
+        "title": "KAPOW",
+        "color": "#F5DEB3",
+        "url": "https://firebasestorage.googleapis.com/v0/b/react-music-b52e8.appspot.com/o/music%2Fonemill%2FKAPOW.mp3?alt=media&token=390b4268-7a40-4dbe-875b-9add09c2ac9a"
+      },
+      {
+        "name":"onemill",
+        "id":16,
+        "artist": "1MILL",
+        "artwork": "https://firebasestorage.googleapis.com/v0/b/react-music-b52e8.appspot.com/o/music%2Fonemill%2Ftonyjaa.jpg?alt=media&token=0797dda8-0f24-48c1-b53d-5e3316523340",
+        "duration": 196,
+        "title": "TONYJA",
+        "color": "#c23434",
+        "url": "https://firebasestorage.googleapis.com/v0/b/react-music-b52e8.appspot.com/o/music%2Fonemill%2FTONYJAA.mp3?alt=media&token=cc162064-1d89-4fd0-a30a-4f6b26503ad9"
+      },
+      {
+        "name":"onemill",
+        "id":17,
+        "artist": "1MILL",
+        "artwork": "https://firebasestorage.googleapis.com/v0/b/react-music-b52e8.appspot.com/o/music%2Fonemill%2Fwarzone.jpg?alt=media&token=6eb0b687-be0f-4080-a94d-6c76e93af7d2",
+        "duration": 180,
+        "title": "WARZONE",
+        "color": "#82cec0",
+        "url": "https://firebasestorage.googleapis.com/v0/b/react-music-b52e8.appspot.com/o/music%2Fonemill%2FWARZONE.mp3?alt=media&token=a7604f83-16e6-4dc8-ae37-91e5c4d18ff4"
+      },
+      {
+        "name":"postmalone",
+        "id":18,
+        "artist": "Post Malone",
+        "artwork": "https://firebasestorage.googleapis.com/v0/b/react-music-b52e8.appspot.com/o/music%2Fpostmalone%2Fcircle.jpg?alt=media&token=f37db32f-7850-4736-9b40-0516af150cec",
+        "duration": 215,
+        "title": "Cicles",
+        "color": "#e3c866",
+        "url": "https://firebasestorage.googleapis.com/v0/b/react-music-b52e8.appspot.com/o/music%2Fpostmalone%2FPost%20Malone-Circles.mp3?alt=media&token=43b10efb-67c7-432e-86cf-879511530469"
+      },
+      {
+        "name":"postmalone",
+        "id":19,
+        "artist": "Post Malone",
+        "artwork": "https://firebasestorage.googleapis.com/v0/b/react-music-b52e8.appspot.com/o/music%2Fpostmalone%2Fcongratulation.jpg?alt=media&token=758e8d0f-2b2a-4a64-8d11-847b34faa4f6",
+        "duration": 227,
+        "title": "Congratulations",
+        "color": "#cab35d",
+        "url": "https://firebasestorage.googleapis.com/v0/b/react-music-b52e8.appspot.com/o/music%2Fpostmalone%2FPost%20Malone-Congratulations.mp3?alt=media&token=a193632f-b7b0-49ef-912f-ed056b183b12"
+      },
+      {
+        "name":"postmalone",
+        "id":20,
+        "artist": "Post Malone",
+        "artwork": "https://firebasestorage.googleapis.com/v0/b/react-music-b52e8.appspot.com/o/music%2Fpostmalone%2Fpsycho.jpg?alt=media&token=d1ff96c7-ee15-44d9-9015-902ba2e9cc75",
+        "duration": 221,
+        "title": "Psycho",
+        "color": "#afa479",
+        "url": "https://firebasestorage.googleapis.com/v0/b/react-music-b52e8.appspot.com/o/music%2Fpostmalone%2FPost%20Malone-Psycho.mp3?alt=media&token=52115d31-62f3-4fbe-a877-50ab0138b513"
+      },
+      {
+        "name":"youngohm",
+        "id":21,
+        "artist": "YOUNGOHM",
+        "artwork": "https://firebasestorage.googleapis.com/v0/b/react-music-b52e8.appspot.com/o/music%2Fyoungohm%2F%E0%B9%80%E0%B8%89%E0%B8%A2%E0%B9%80%E0%B8%A1%E0%B8%A2.jpg?alt=media&token=86ba7a19-5086-41d6-ba4b-c6b2958751ef",
+        "duration": 261,
+        "title": "เฉยเมย",
+        "color": "#9630fc",
+        "url": "https://firebasestorage.googleapis.com/v0/b/react-music-b52e8.appspot.com/o/music%2Fyoungohm%2FYOUNGOHM-%E0%B9%80%E0%B8%89%E0%B8%A2%E0%B9%80%E0%B8%A1%E0%B8%A2.mp3?alt=media&token=f4e8781a-f5f4-491c-9ebe-1fc66beea3bf"
+      },
+      {
+        "name":"youngohm",
+        "id":22,
+        "artist": "YOUNGOHM",
+        "artwork": "https://firebasestorage.googleapis.com/v0/b/react-music-b52e8.appspot.com/o/music%2Fyoungohm%2F%E0%B8%94%E0%B8%B9%E0%B9%84%E0%B8%A7%E0%B9%89.jpg?alt=media&token=9dd4b268-fb42-4da2-b309-755dc470170b",
+        "duration": 218,
+        "title": "ดูไว้",
+        "color": "#d7c171",
+        "url": "https://firebasestorage.googleapis.com/v0/b/react-music-b52e8.appspot.com/o/music%2Fyoungohm%2FYOUNGOHM-%E0%B8%94%E0%B8%B9%E0%B9%84%E0%B8%A7%E0%B9%89.mp3?alt=media&token=c06f2102-ab3d-44c4-8999-4ff18431c16e"
+      },
+      {
+        "name":"youngohm",
+        "id":23,
+        "artist": "YOUNGOHM",
+        "artwork": "https://firebasestorage.googleapis.com/v0/b/react-music-b52e8.appspot.com/o/music%2Fyoungohm%2F%E0%B9%84%E0%B8%9F%E0%B9%80%E0%B8%A2%E0%B9%87%E0%B8%99.jpg?alt=media&token=1f1a25c8-3baa-4ece-82b7-142e51e2238e",
+        "duration": 285,
+        "title": "ไฟเย็น",
+        "color": "#8ed771",
+        "url": "https://firebasestorage.googleapis.com/v0/b/react-music-b52e8.appspot.com/o/music%2Fyoungohm%2FYOUNGOHM-%E0%B9%84%E0%B8%9F%E0%B9%80%E0%B8%A2%E0%B9%87%E0%B8%99.mp3?alt=media&token=bb3f5f34-cc6a-4bf7-8538-8be4bcd6395b"
+      }
+    ]
+  }
