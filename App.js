@@ -20,7 +20,7 @@ import {
 import Login from './screens/Login';
 import { NavigationContainer, DarkTheme, DefaultTheme } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import Played from './screens/Played';
+
 import Home from './screens/Home';
 import ListMusic from './screens/ListMusic';
 import Register from './screens/Register';
@@ -224,7 +224,7 @@ export default function App() {
 
             <Stack.Screen options={{ headerShown: false }} name='Home' component={Home} />
             <Stack.Screen options={{ headerShown: false }} name='ListMusic' component={ListMusic} />
-            <Stack.Screen options={{ headerShown: false }} name='Played' component={Played} />
+
           </Stack.Navigator>
 
 

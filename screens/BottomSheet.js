@@ -9,7 +9,7 @@ import {
 import { PanGestureHandler } from "react-native-gesture-handler";
 import { Portal } from "react-native-paper";
 import Icon from 'react-native-vector-icons/FontAwesome';
-import Played from './Played'
+
 import TrackPlayer, {
     Capability, Event, RepeatMode,
     State, usePlaybackState, useProgress

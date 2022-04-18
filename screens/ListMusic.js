@@ -10,7 +10,7 @@ import TrackPlayer, {
     State, usePlaybackState, useProgress
     , useTrackPlayerEvents
 } from 'react-native-track-player';
-import { Tracks, Tracks2 } from "../list_music.js"
+
 
 import Icon from 'react-native-vector-icons/FontAwesome';
 
