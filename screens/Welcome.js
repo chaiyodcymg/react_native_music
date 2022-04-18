@@ -39,16 +39,7 @@ const Welcome = ({navigation}) => {
                 height: 50,
               }}
               containerStyle={styles.button}></Button>
-            <Button
-              onPress={() => navigation.navigate('Register')}
-              title="ดำเนินการด้วยหมายเลขโทรศัพท์"
-              titleStyle={styles.titlestyle}
-              buttonStyle={{
-                borderRadius: 25,
-                width: 320,
-                height: 50,
-              }}
-              containerStyle={styles.button}></Button>
+         
             <Button
               onPress={() => navigation.navigate('Login')}
               title="เข้าสู่ระบบ"
@@ -57,8 +48,11 @@ const Welcome = ({navigation}) => {
               buttonStyle={{
                 width: 320,
                 height: 50,
+              
               }}
-              containerStyle={styles.button}></Button>
+              containerStyle={styles.button}>
+              
+            </Button>
           </View>
         </View>
       </ImageBackground>

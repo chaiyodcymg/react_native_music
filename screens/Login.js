@@ -1,6 +1,6 @@
 import {
     StyleSheet, Text, View, KeyboardAvoidingView,
-    TextInput, StatusBar, ImageBackground, Dimensions, TouchableOpacity,Image,Keyboard
+    TextInput, StatusBar, ImageBackground, Dimensions, TouchableOpacity, Image, Keyboard
 } from 'react-native'
 import { Button } from 'react-native-elements';
 import React, { useState, useEffect } from 'react'
@@ -18,7 +18,7 @@ const Login = ({ navigation }) => {
     const authen = auth;
 
     const [loginPending, setLoginPending] = useState(false);
- 
+
     // useEffect(() => {
     //     // const auth = getAuth();
     //     onAuthStateChanged(auth, (authUser) => {
@@ -35,30 +35,30 @@ const Login = ({ navigation }) => {
         signInWithEmailAndPassword(authen, email, password)
             .then(() => {
                 setLoginPending(false)
-              
+
             }).catch((error) => {
                 setLoginPending(false)
                 alert(error)
             })
     }
     return (
-  
+
         <View style={styles.container}>
             {loginPending &&
                 <View style={[StyleSheet.absoluteFillObject, styles.container_spiner]}>
-                       
-                      
+
+
                 </View>
 
             }
-            {loginPending && <LottieView style={styles.spiner} 
+            {loginPending && <LottieView style={styles.spiner}
                 source={require('../image/loader_logo.json')} autoPlay loop />
-                
+
             }
             <StatusBar translucent backgroundColor='transparent' barStyle="light-content" />
             <View>
                 <Video
-                    source={{ uri:"https://firebasestorage.googleapis.com/v0/b/react-music-b727c.appspot.com/o/blackpinkcrop.mp4?alt=media&token=b90cdaaf-3f95-45df-98c3-423cdcce370c"}}
+                    source={require('../image/blackpinkcrop.mp4')}
                     style={styles.backgroundVideo}
                     muted={true}
                     repeat={true}
@@ -66,20 +66,21 @@ const Login = ({ navigation }) => {
                     rate={1.0}
                     ignoreSilentSwitch={'obey'}
                 />
-                <TouchableOpacity style={{ alignItems: "flex-start", marginTop: 50 }}>
+                <TouchableOpacity >
                     <Icon
 
                         name='angle-left'
                         type='font-awesome'
                         color='#ffffff'
-
+                        style={{ alignItems: "flex-start", marginTop: 60 }}
                         size={30}
                         onPress={() => navigation.navigate('Welcome')}
                     />
                 </TouchableOpacity>
                 <View style={styles.container}>
-                    <Image source={require('../image/music_icon.png')}  style={{ width: 200, height: 200 }} />
+                    <Image source={require('../image/music_icon.png')} style={{ width: 200, height: 200 }} />
                     <TextInput
+                        onSubmitEditing={signIn}
                         style={styles.input}
                         placeholder="อีเมล"
                         type="text"
@@ -88,6 +89,7 @@ const Login = ({ navigation }) => {
                         placeholderTextColor="white"></TextInput>
 
                     <TextInput
+                        onSubmitEditing={signIn}
                         style={styles.input}
                         placeholder="รหัสผ่าน"
                         type="password"
@@ -96,14 +98,18 @@ const Login = ({ navigation }) => {
                         onChangeText={(text) => setPassword(text)}
                         placeholderTextColor="white"></TextInput>
 
-                    <Button onPress={signIn} title="เข้าสู่ระบบ"
+                    <Button
+                        onPress={signIn}
+                        title="เข้าสู่ระบบ"
                         titleStyle={styles.titlestyle}
                         buttonStyle={{
-                        backgroundColor: '#1ed660',
-                        borderRadius: 25,
-                        width: 350,
-                        height: 50,
-                        }}></Button>
+                            backgroundColor: '#1ed660',
+                            borderRadius: 25,
+                            width: 350,
+                            height: 50,
+                        }}
+                        
+                    ></Button>
 
                     <Button onPress={() => navigation.navigate('Register')} title="สร้างบัญชีใหม่"
                         type="clear"
@@ -128,7 +134,7 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         // justifyContent: 'center',
-        
+
     },
     // inputContainer: {
     //     width: 300,
@@ -158,17 +164,18 @@ const styles = StyleSheet.create({
         // right: 0,
         // bottom: 0,
         left: -31,
-        opacity : 5,
+        opacity: 5,
+        backgroundColor: "black"
     },
     container_spiner: {
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: 'rgb(46, 46, 46)',
         zIndex: 1,
-        opacity : 0.6,
+        opacity: 0.6,
     },
     spiner: {
         zIndex: 2,
-        
+
     }
 });

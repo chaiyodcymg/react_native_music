@@ -30,8 +30,8 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import BottomSheet from "./screens/BottomSheet";
 import { Provider } from "react-native-paper";
-
-
+import { LogBox } from 'react-native';
+LogBox.ignoreAllLogs();
 //yun
 
 // import Register from './screens/Register';

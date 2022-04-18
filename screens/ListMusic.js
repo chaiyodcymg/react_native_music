@@ -21,6 +21,7 @@ import { Gesture, GestureDetector } from "react-native-gesture-handler";
 // import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { Button } from 'react-native-elements';
 import { getDatabase, ref, onValue } from "firebase/database";
+import LottieView from 'lottie-react-native';
 import LinearGradient from 'react-native-linear-gradient';
 const ListMusic = ({ route, navigation }) => {
     // const [isVisible, setIsVisible] = useState(false);
@@ -97,21 +98,7 @@ const ListMusic = ({ route, navigation }) => {
             await TrackPlayer.skip(id);
             await TrackPlayer.play();
         }
-        // await TrackPlayer.reset();
-
-
-
-        //      TrackPlayer.skip(id);
-        // } else {
-        // console.log(currentTrack);
-
-
-        // }
-        // TrackPlayer.add(Tracks);
-
-
-
-        //    TrackPlayer.setVolume(volumemusic);
+      
     };
     useEffect(() => {
         // console.log(nameartist);
@@ -136,7 +123,15 @@ const ListMusic = ({ route, navigation }) => {
     }, []);
     return (
         <LinearGradient colors={[color, '#000000', '#000000']} style={styles.container}>
+            {listmusic == null &&
+                <View style={[StyleSheet.absoluteFillObject, styles.container_spiner]}>
 
+
+                </View>
+            }
+            {listmusic == null &&
+                <LottieView style={styles.spiner} source={require('../image/loader_logo.json')} autoPlay loop />
+            }
 
             <StatusBar translucent backgroundColor='transparent' style="light" />
             <View style={{ height: 50 }} />
@@ -219,7 +214,16 @@ const styles = StyleSheet.create({
     buttonText: {
         fontSize: 20,
         color: '#ffffff',
-    }
-
+    },
+        container_spiner: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'rgb(46, 46, 46)',
+        zIndex: 1,
+        opacity: 0.6,
+    },
+    spiner: {
+        zIndex: 2,
+    },
 
 })
