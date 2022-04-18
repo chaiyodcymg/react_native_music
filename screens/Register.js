@@ -7,7 +7,7 @@ import { Button, Input, Text } from 'react-native-elements';
 import { auth } from '../firebase';
   import { createUserWithEmailAndPassword } from 'firebase/auth';
 import Icon from 'react-native-vector-icons/FontAwesome';
-
+import Video from 'react-native-video';
 import LottieView from 'lottie-react-native';
   const Register = ({navigation}) => {
     // const [name, setName] = useState("");
@@ -34,12 +34,24 @@ import LottieView from 'lottie-react-native';
       })
     };
     return (
-        <KeyboardAvoidingView>
-           
-        <ImageBackground
+      <View style={styles.container}>
+        <View style={[StyleSheet.absoluteFillObject, styles.containerback]}>
+        <Video
+
+          source={require('../image/youngohm2.mp4')}
+            style={[StyleSheet.absoluteFillObject, styles.containervideo]}
+          muted={true}
+          repeat={true}
+          resizeMode='cover'
+          rate={1.0}
+          ignoreSilentSwitch={'obey'}
+        />
+    
+        </View>
+        {/* <ImageBackground
           source={require('../image/register.png')}
           resizeMode="cover"
-          style={{ width: '100%', height: '100%' }}>
+          style={{ width: '100%', height: '100%' }}> */}
           
           {loginPending &&
             <View style={[StyleSheet.absoluteFillObject, styles.container_spiner]}>
@@ -53,7 +65,8 @@ import LottieView from 'lottie-react-native';
           {loginPending && <LottieView style={styles.spiner} source={require('../image/loader_logo.json')} autoPlay loop />
 
           }
-                <TouchableOpacity style={{ alignItems: "flex-start", marginLeft: 20, marginTop: 50 }}>
+        <View>
+                <TouchableOpacity style={{ alignItems: "flex-start", marginLeft: -20, marginTop: 50 }}>
                     <Icon
 
                         name='angle-left'
@@ -65,23 +78,27 @@ import LottieView from 'lottie-react-native';
                     />
                 </TouchableOpacity>
           <View style={styles.container}>
+            <Image source={require('../image/music_icon.png')} style={{ width: 180, height: 180 }} />
                   
             <TextInput
               style={styles.input}
-              placeholder="Email"
+              placeholder="อีเมล"
               type="text"
               value={email}
               onChangeText={(text)=>setEmail(text)}
               placeholderTextColor="white"></TextInput>
             <TextInput
-              style={styles.input}
-              placeholder="Password"
+              style={[styles.input, styles.input2]}
+              placeholder="รหัสผ่าน"
               type="password"
               secureTextEntry
               value={password}
-              onChangeText={(text)=>setPassword(text)}
-              placeholderTextColor="white"></TextInput>
-            <Button
+              onChangeText={(text) => setPassword(text)}
+          
+              placeholderTextColor="white">
+              
+              </TextInput>
+            {/* <Button
               onPress={create_account}
               title="สร้างบัญชี"
               titleStyle={styles.titlestyle}
@@ -101,10 +118,25 @@ import LottieView from 'lottie-react-native';
                 width: 150,
                 // marginRight: 250,
                 marginTop: 10,
-              }}></Button>
+              }}></Button> */}
+
+              <TouchableOpacity onPress={create_account}>
+                  <Text style={{
+                      color: "black", paddingHorizontal: 10, paddingVertical: 13, backgroundColor: '#1ed660',
+                      borderRadius: 30, paddingLeft: 108, paddingRight: 108, fontSize: 19, fontWeight:"blod"
+                  }}>สร้างบัญชี</Text>
+              </TouchableOpacity>
+              
+              <TouchableOpacity onPress={() => navigation.navigate('Login')}>
+                  <Text style={{
+                  color: "white", paddingHorizontal: 10, paddingVertical: 10,
+                  borderRadius: 30, paddingLeft: 70, paddingRight: 70, fontSize: 19, fontWeight:"blod"
+                  }}>มีบัญชีแล้ว</Text>
+              </TouchableOpacity>
           </View>
-        </ImageBackground>
-      </KeyboardAvoidingView>
+        </View>
+        {/* </ImageBackground> */}
+      </View>
     );
   };
   
@@ -112,22 +144,26 @@ import LottieView from 'lottie-react-native';
     container: {
       flex: 1,
       alignItems: 'center',
-      justifyContent: 'center',
+      // justifyContent: 'center',
     },
     input: {
       backgroundColor: '#a9a9a9',
       borderRadius: 10,
-      width: 350,
+      height: 55,
+      width: 300,
       padding: 15,
       color: 'white',
-      marginBottom: 10,
-      fontSize: 20,
+      marginBottom: 15,
+      fontSize: 17,
+    },
+    input2:{
+      marginBottom: 40,
     },
     button: {
-      // marginTop: 10,
+      marginTop: 10,
     },
     titlestyle: {
-      fontSize: 20,
+      fontSize: 19,
       color: 'white',
     },
     
@@ -140,7 +176,17 @@ import LottieView from 'lottie-react-native';
   },
     spiner: {
     zIndex: 2,
-  }
+    },
+    containervideo: {
+      // zIndex: 1,
+   
+    },
+    containerback: {
+      opacity: 0.6,
+      backgroundColor:""
+      // zIndex: 2,
+      // opacity: 0.6,
+    }
   });
   
   export default Register;

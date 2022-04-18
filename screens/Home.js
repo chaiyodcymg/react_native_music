@@ -27,9 +27,9 @@ const Home = ({ navigation }) => {
 
     const [show, setShow] = useState(false);
     const [dataartist, setDataartist] = useState(null);
-
+    const [colorpage, setcolorpage] = useState('#004d1a');
     const authen = auth;
-
+    const color = ['#4dc3ff', '#004d1a', '#ff0000', '#ff3399','#ff9900']
     const SignOut = () => {
         Alert.alert(
             "ออกจากระบบ",
@@ -70,51 +70,13 @@ const Home = ({ navigation }) => {
 
             // return this.showmsg = data;
         });
-
+    
+       
     }, [])
-    const List_artist = ({ items }) => {
-        // console.log(items);
-        let list = [];
-        let listname = ['นักร้องยอดนิยม', 'แนะนำสำหรับวันนี้']
-        let count = 0;
+    useEffect(() => {
+        setcolorpage(color[Math.floor(Math.random() * color.length)]);
 
-        for (const item in items) {
-            // console.log("------------------------------------------------------------------"); 
-            // console.log(items[item]);  
-
-
-
-            list.push(
-                <View>
-                    <FlatList
-                        horizontal
-                        data={items[item]}
-                        renderItem={renderItem}
-                        showsHorizontalScrollIndicator={false}
-                        style={styles.flatlist}
-                    />
-                    <Text style={{ textAlign: "left", color: "#ffffff", fontSize: 22, fontWeight: "800", fontFamily: 'Roboto', marginLeft: 25 }}>
-                        {listname[count]}
-                    </Text>
-                </View>
-            );
-
-
-
-
-            count++;
-
-        }
-
-        return (
-            <View>
-                {list}
-
-
-            </View>
-        )
-
-    }
+    }, [colorpage])
     const renderItem = ({ item }) => {
         // console.log("------------------------------------------------------------------");  
 
@@ -149,6 +111,88 @@ const Home = ({ navigation }) => {
 
         );
     }
+    const List_artist = ({ items }) => {
+        // console.log(items);
+        let list = [];
+        let listname = ['นักร้องยอดนิยม', 'แนะนำสำหรับวันนี้']
+        let count = 0;
+        items.map((item,key) => {
+            // console.log(item);
+                list.push(
+                    <View key={key}>
+                    <FlatList
+                   
+                        horizontal
+                        data={item}
+                        renderItem={renderItem}
+                        showsHorizontalScrollIndicator={false}
+                        style={styles.flatlist}
+                    />
+                        <Text style={{
+                            textAlign: "left", color: "#ffffff",
+                            fontSize: 22, fontWeight: "800", fontFamily: 'Roboto', marginLeft: 25
+                        }}>
+                        {listname[count]}
+                    </Text>
+                </View>
+            );
+
+            count++;
+        })
+        // items.forEach(item => {
+        //     // console.log(item)
+        //     list.push(
+        //         <View>
+        //             <FlatList
+        //                 horizontal
+        //                 data={item}
+        //                 renderItem={renderItem}
+        //                 showsHorizontalScrollIndicator={false}
+        //                 style={styles.flatlist}
+        //             />
+        //             <Text style={{ textAlign: "left", color: "#ffffff", fontSize: 22, fontWeight: "800", fontFamily: 'Roboto', marginLeft: 25 }}>
+        //                 {listname[count]}
+        //             </Text>
+        //         </View>
+        //     );
+
+        //     count++;
+        // });
+
+
+        // for (const item in items) {
+      
+        //     list.push(
+        //         <View>
+        //             <FlatList
+        //                 horizontal
+        //                 data={items[item]}
+        //                 renderItem={renderItem}
+        //                 showsHorizontalScrollIndicator={false}
+        //                 style={styles.flatlist}
+        //             />
+        //             <Text style={{ textAlign: "left", color: "#ffffff", fontSize: 22, fontWeight: "800", fontFamily: 'Roboto', marginLeft: 25 }}>
+        //                 {listname[count]}
+        //             </Text>
+        //         </View>
+        //     );
+
+
+
+
+        //     count++;
+
+        // }
+
+        return (
+            <View>
+                {list}
+
+            </View>
+        )
+
+    }
+    
     return (
 
         // <ImageBackground source={require('../image/back-index.png')}
@@ -158,7 +202,7 @@ const Home = ({ navigation }) => {
         //         paddingBottom: 0,
         //         margin:0
         //         }}>
-        <LinearGradient colors={['#004d1a', '#001a09', '#000000']} style={styles.container}>
+        <LinearGradient colors={[colorpage, '#001a09', '#000000']} style={styles.container}>
             {/* <View style={styles.container}> */}
             {dataartist == null &&
                 <View style={[StyleSheet.absoluteFillObject, styles.container_spiner]}>
@@ -174,7 +218,11 @@ const Home = ({ navigation }) => {
 
                 <StatusBar translucent backgroundColor='transparent' />
                 <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between", marginVertical: 15 }}>
-                    <Text style={{ textAlign: "left", color: "#ffffff", fontSize: 22, fontWeight: "800", fontFamily: 'Roboto', marginLeft: 25 }}>
+                    <Text style={{
+                        textAlign: "left", color: "#ffffff",
+                        fontSize: 22, fontWeight: "800", fontFamily: 'Roboto',
+                        marginLeft: 25
+                    }}>
                         เพลงแนะนำ
                     </Text>
                     <TouchableOpacity style={{ marginRight: 25 }}>

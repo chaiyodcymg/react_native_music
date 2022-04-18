@@ -89,7 +89,7 @@ const ListMusic = ({ route, navigation }) => {
                     Capability.Pause,
                     //     Capability.SkipToNext,
                     //     Capability.SkipToPrevious,
-                    Capability.Stop
+                    // Capability.Stop
                 ],
 
             });

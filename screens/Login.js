@@ -1,6 +1,7 @@
 import {
     StyleSheet, Text, View, KeyboardAvoidingView,
-    TextInput, StatusBar, ImageBackground, Dimensions, TouchableOpacity, Image, Keyboard
+    TextInput, StatusBar, ImageBackground, TouchableOpacity,
+    Image, Keyboard, Dimensions
 } from 'react-native'
 import { Button } from 'react-native-elements';
 import React, { useState, useEffect } from 'react'
@@ -44,6 +45,16 @@ const Login = ({ navigation }) => {
     return (
 
         <View style={styles.container}>
+            <Video
+
+                source={require('../image/blackpinkcrop.mp4')}
+                style={StyleSheet.absoluteFillObject}
+                muted={true}
+                repeat={true}
+                resizeMode='cover'
+                rate={1.0}
+                ignoreSilentSwitch={'obey'}
+            />
             {loginPending &&
                 <View style={[StyleSheet.absoluteFillObject, styles.container_spiner]}>
 
@@ -56,29 +67,21 @@ const Login = ({ navigation }) => {
 
             }
             <StatusBar translucent backgroundColor='transparent' barStyle="light-content" />
-            <View>
-                <Video
-                    source={require('../image/blackpinkcrop.mp4')}
-                    style={styles.backgroundVideo}
-                    muted={true}
-                    repeat={true}
-                    resizeMode={'cover'}
-                    rate={1.0}
-                    ignoreSilentSwitch={'obey'}
-                />
+            <View >
+               
                 <TouchableOpacity >
                     <Icon
 
                         name='angle-left'
                         type='font-awesome'
                         color='#ffffff'
-                        style={{ alignItems: "flex-start", marginTop: 60 }}
+                        style={{ marginLeft:-20, marginTop: 60 }}
                         size={30}
                         onPress={() => navigation.navigate('Welcome')}
                     />
                 </TouchableOpacity>
                 <View style={styles.container}>
-                    <Image source={require('../image/music_icon.png')} style={{ width: 200, height: 200 }} />
+                    <Image source={require('../image/music_icon.png')} style={{ width: 180, height: 180 }} />
                     <TextInput
                         onSubmitEditing={signIn}
                         style={styles.input}
@@ -90,7 +93,7 @@ const Login = ({ navigation }) => {
 
                     <TextInput
                         onSubmitEditing={signIn}
-                        style={styles.input}
+                        style={[styles.input, styles.input2]}
                         placeholder="รหัสผ่าน"
                         type="password"
                         secureTextEntry
@@ -98,7 +101,7 @@ const Login = ({ navigation }) => {
                         onChangeText={(text) => setPassword(text)}
                         placeholderTextColor="white"></TextInput>
 
-                    <Button
+                    {/* <Button
                         onPress={signIn}
                         title="เข้าสู่ระบบ"
                         titleStyle={styles.titlestyle}
@@ -108,16 +111,28 @@ const Login = ({ navigation }) => {
                             width: 350,
                             height: 50,
                         }}
-                        
-                    ></Button>
+                    ></Button> */}
+                    <TouchableOpacity onPress={signIn}>
+                        <Text style={{
+                            color: "black", paddingHorizontal: 10, paddingVertical: 13, backgroundColor: '#1ed660',
+                            borderRadius: 30, paddingLeft: 108, paddingRight: 108, fontSize: 19, fontWeight: "blod"
+                        }}>เข้าสู่ระบบ</Text>
+                    </TouchableOpacity>
 
-                    <Button onPress={() => navigation.navigate('Register')} title="สร้างบัญชีใหม่"
+                    <TouchableOpacity onPress={() => navigation.navigate('Register')}>
+                        <Text style={{
+                            color: "white", paddingHorizontal: 10, paddingVertical: 13,
+                            borderRadius: 30, paddingLeft: 70, paddingRight: 70, fontSize: 19, fontWeight: "blod"
+                        }}>สร้างบัญชีใหม่</Text>
+                    </TouchableOpacity>
+
+                    {/* <Button onPress={() => navigation.navigate('Register')} title="สร้างบัญชีใหม่"
                         type="clear"
                         titleStyle={styles.titlestyle}
                         buttonStyle={{
                             width: 320,
                             height: 50,
-                        }}></Button>
+                        }}></Button> */}
                 </View>
             </View>
 
@@ -131,6 +146,8 @@ export default Login;
 
 const styles = StyleSheet.create({
     container: {
+        // width: "100%",
+        // height:"100%"
         flex: 1,
         alignItems: 'center',
         // justifyContent: 'center',
@@ -142,31 +159,43 @@ const styles = StyleSheet.create({
     input: {
         backgroundColor: '#a9a9a9',
         borderRadius: 10,
-        width: 350,
+        height: 55,
+        width: 300,
         padding: 15,
         color: 'white',
-        marginBottom: 10,
-        fontSize: 20,
+        marginBottom: 15,
+        fontSize: 17,
+      },
+    input2:{
+        marginBottom: 40,
     },
-    // button: {
-    //     marginTop: 5,
-    // },
     titlestyle: {
-        fontSize: 20,
+        fontSize: 19,
         color: 'white',
     },
-    backgroundVideo: {
-        width: "100%",
-        height: '100%',
-        // zIndex:0,
-        position: 'absolute',
-        // top: 0,
-        // right: 0,
-        // bottom: 0,
-        left: -31,
-        opacity: 5,
-        backgroundColor: "black"
-    },
+    // backgroundVideo: {
+    //     // width: windowWidth,
+    //     // height: "100%",
+    //     // // zIndex:0,
+    //     // position: 'absolute',
+    //     // // top: 0,
+    //     // // // right: 0,
+    //     // // bottom: 0,
+    //     // left: -56,
+    //     // // opacity: 0.3,
+    //     // // zIndex: -100,
+    //     // backgroundColor: "black",
+    //     height: windowHeight,
+    //     // minHeight: '100%',
+    //     position: "absolute",
+    //     top: 0,
+    //     left: 0,
+    //     alignItems: "stretch",
+    //     bottom: 0,
+    //     right: 0
+
+
+    // },
     container_spiner: {
         justifyContent: 'center',
         alignItems: 'center',

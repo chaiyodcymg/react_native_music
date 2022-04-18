@@ -24,10 +24,7 @@ const BottomSheet = ({ show, onDismiss, enableBackdropDismiss, color, children }
     const [open, setOpen] = useState(show);
     const bottom = useRef(new Animated.Value(-bottomSheetHeight)).current;
 
-    const [showPlayer, setshowPlayer] = useState(false);
-    const [trackArtwork, setTrackArtwork] = useState("");
-    const [trackTitle, setTrackTitle] = useState("");
-    const [trackArtist, setTrackArtist] = useState("");
+   
 
     const onGesture = (event) => {
         if (event.nativeEvent.translationY > 0) {

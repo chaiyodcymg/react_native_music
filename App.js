@@ -23,19 +23,14 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Played from './screens/Played';
 import Home from './screens/Home';
 import ListMusic from './screens/ListMusic';
-import Search from './screens/Search';
 import Register from './screens/Register';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-
 import Icon from 'react-native-vector-icons/FontAwesome';
+import Feather from 'react-native-vector-icons/Feather';
+import MaterialIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import BottomSheet from "./screens/BottomSheet";
 import { Provider } from "react-native-paper";
 import { LogBox } from 'react-native';
-LogBox.ignoreAllLogs();
-//yun
-
-// import Register from './screens/Register';
-
 import TrackPlayer, {
   Capability, Event, RepeatMode,
   State, usePlaybackState, useProgress
@@ -44,13 +39,13 @@ import TrackPlayer, {
 } from 'react-native-track-player';
 import { Tracks } from "./list_music.js"
 import Slider from '@react-native-community/slider';
-
-
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from './firebase';
 import Welcome from './screens/Welcome';
 import Video from 'react-native-video';
 import { ProgressBar, Colors } from 'react-native-paper';
+
+
 const Stack = createNativeStackNavigator();
 
 const Tab = createBottomTabNavigator();
@@ -61,19 +56,13 @@ const globalScreenOptions = {
   headerTitleStyle: { color: "white" },
   headerTintColor: "white",
 }
-
-// const events = [
-//   TrackPlayerEvents.PLAYBACK_STATE,
-//   TrackPlayerEvents.PLAYBACK_ERROR
-// ];
+LogBox.ignoreAllLogs();
 
 
 
 
 
-
-
-export default function App({ navigation }) {
+export default function App() {
 
 
 
@@ -93,11 +82,9 @@ export default function App({ navigation }) {
 
   const playbackState = usePlaybackState();
   const progress = useProgress();
-  const [statusTimeStart, setstatusTimeStart] = useState(0);
-  const [statusTimeEnd, setstatusTimeEnd] = useState(0);
-  const [check, setcheck] = useState(0);
-  const [volumemusic, setVolumemusic] = useState(0.5);
 
+  const [volumemusic, setVolumemusic] = useState(1);
+  const [repeatMode, setRepeatMode] = useState('off');
   useTrackPlayerEvents(
     [
       Event.PlaybackQueueEnded,
@@ -108,14 +95,10 @@ export default function App({ navigation }) {
     ],
     async event => {
 
-      console.log(event);
+ 
 
       if (event.type === Event.PlaybackTrackChanged && event.nextTrack !== undefined) {
-
-        // setcheck(check);
-        // console.log(playbackState);
-        // const tracks = await TrackPlayer.getQueue();
-        // if (event.nextTrack != 0) {
+   
         const track = await TrackPlayer.getTrack(event.nextTrack);
         const { title, artist, artwork, color } = track || {};
         // console.log(track);
@@ -123,23 +106,15 @@ export default function App({ navigation }) {
         trackArtwork.current = artwork;
         trackArtist.current = artist;
         showPlayer.current = true;
-        // console.log(track);
+ 
+
         setbackcolor(color);
-        // }
-
-        // console.log("playbackState = " + playbackState);
-        // console.log("playbackState = "+playbackState);
-        //   // setbtnPlayer("pause");
-        // console.log("State  = "+State.Paused);
-        // if (playbackState == State.Paused) {
-
-        //   setbtnPlayer("play");
-        // } else if (playbackState == State.Playing) {
-
+  
         setbtnPlayer("pause");
-        TrackPlayer.setVolume(value);
-        setVolumemusic(value);
-        // }
+    
+        const volume = await TrackPlayer.getVolume();
+       await setVolume_Music(volume)
+    
       } else if (event.type == Event.RemotePlay) {
         setbtnPlayer("pause");
       }
@@ -207,52 +182,29 @@ export default function App({ navigation }) {
   if (user == null) {
     showPlayer.current = false;
   }
-  const setVolume_Music = async (value) => {
-    TrackPlayer.setVolume(value);
-    setVolumemusic(value);
+  const setVolume_Music =  async(value) => {
+
+   await TrackPlayer.setVolume(value);
+       setVolumemusic(value);
   }
-  // const SetStatusbtnPlay = () => {
-  //   if (btnPlayer == "pause") {
-  //     setbtnPlayer("play");
-  //   } else {
-  //     setbtnPlayer("pause");
-  //   }
-  // }
-  // const screen = '';
-  // if (user == null) {
-
-  //   <Stack.Navigator >
-  //         <Stack.Screen options={{ headerShown: false }} name="Welcome" component={Welcome} />
-  //         <Stack.Screen options={{ headerShown: false }} name="Login" component={Login} />
-  //       </Stack.Navigator>
-
-
-  // } else {
-  //     <Tab.Screen options={{ headerShown: false }} name='TabHome' >
-  //     {() => (
-  //       <Stack.Navigator >
-
-  //         <Stack.Screen options={{ headerShown: false }} name="Welcome" component={Welcome} />
-  //         <Stack.Screen options={{ headerShown: false }} name="Login" component={Login} />
-  //         <Stack.Screen options={{ headerShown: false }} name='Home' component={Home} />
-  //         <Stack.Screen options={{ headerShown: false }} name='ListMusic' component={ListMusic} />
-  //         <Stack.Screen options={{ headerShown: false }} name='Played' component={Played} />
-  //       </Stack.Navigator>
-
-  //     )}
-  //   </Tab.Screen>
-  // }
-
-  const renderItem = ({ item }) => {
-    // console.log(item.artwork);
-    return (
-      <View style={{ marginHorizontal: 20, height: 60, justifyContent: "center" }}>
-        <Image source={item.artwork} style={{ width: 50, height: 50, }} />
-      </View>
-    )
+  const repeatChange = () => {
+    if (repeatMode == 'off') {
+      TrackPlayer.setRepeatMode(RepeatMode.Track)
+      setRepeatMode('track');
+    }
+    if (repeatMode == 'track') {
+      TrackPlayer.setRepeatMode(RepeatMode.Queue)
+      setRepeatMode('repeat');
+    }
+    if (repeatMode == 'repeat') {
+      TrackPlayer.setRepeatMode(RepeatMode.Off)
+      setRepeatMode('off');
+    }
   }
+
   return (
     <Provider >
+   
       <NavigationContainer
 
       >
@@ -360,17 +312,46 @@ export default function App({ navigation }) {
               enableBackdropDismiss
               color={backcolor}
             >
-              <View style={styles.ViewbackgroundVideo}>
-                {/* <Video
-                source={{ uri: "https://firebasestorage.googleapis.com/v0/b/react-music-b727c.appspot.com/o/blackpinkcrop.mp4?alt=media&token=b90cdaaf-3f95-45df-98c3-423cdcce370c" }}
-                style={styles.backgroundVideo}
-                muted={true}
-                repeat={true}
-                resizeMode={'cover'}
-                rate={1.0}
-                ignoreSilentSwitch={'obey'}
-                /> */}
-              </View>
+
+
+              <TouchableOpacity onPress={() => repeatChange()}
+                style={{
+                  position: "absolute", top: 70, right: 22,
+                  fontWeight: 'bold',zIndex:1,
+                }}
+              >
+                {repeatMode == "off" && 
+                  <MaterialIcons
+                    name='repeat-off'
+                    color='white'
+                    size={32}
+
+
+                  />
+                }
+                {repeatMode == "track" &&
+                  <MaterialIcons
+                  name='repeat-once'
+                    color='white'
+                    size={32}
+
+
+                  />
+                }
+                {repeatMode == "repeat" &&
+                  <MaterialIcons
+                  name='repeat'
+                    color='white'
+                    size={32}
+
+
+                  />
+                }
+              </TouchableOpacity>
+
+
+
+             
               <View style={{ flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
 
                 {/* <View style={{ height:450,}}/> */}
@@ -392,12 +373,7 @@ export default function App({ navigation }) {
                     maximumTrackTintColor="rgb(217, 217, 217)"
                     thumbTintColor="white"
                     size={1}
-                    onValueChange={(value) => {
-                      // progress.position = value
-                      // console.log("value =" + progress.position)
-                      setstatusTimeStart(value);
-                      // setstatusTimeEnd(value);
-                    }}
+                   
                     onSlidingComplete={async (value) => {
                       // console.log("value =" + value)
                       await TrackPlayer.seekTo(value);
@@ -422,13 +398,14 @@ export default function App({ navigation }) {
                 </View>
 
                 <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "center", marginBottom: 50 }}>
+               
                   <TouchableOpacity onPress={() => SkipBack()}
                   // style={{ marginRight: 50 }}
                   >
 
-                    <Icon
-                      name="step-backward"
-                      type='font-awesome'
+                    <Feather
+                      name="skip-back"
+                      // type='font-awesome'
                       color='#f2f2f2'
                       size={32}
 
@@ -437,59 +414,79 @@ export default function App({ navigation }) {
 
                   <TouchableOpacity onPress={() => PlayBack(playbackState)}
                     style={{
-                      marginRight: 75, marginLeft: 75, backgroundColor: "rgb(255, 255, 255)",
-                      paddingLeft: 20,
-                      paddingVertical: 16,
-                      borderRadius: 75,
+                      marginRight: 75, marginLeft: 75,
+                      backgroundColor: "rgb(255, 255, 255)",
+                      borderRadius: 75, 
                       maxHeight: 58, minHeight: 58
                       , maxWidth: 60, minWidth: 60
                     }}
                   >
-
-                    <Icon
-                      name={btnPlayer}
+                    {btnPlayer == 'play' ? (
+                      <Icon
+                      name='play'
+                      // name=
                       type='font-awesome'
-                      color='black'
+                      color={backcolor}
+                        style={{
+                          paddingLeft: 22,
+                          paddingVertical: 16,
+                         }}
                       size={25}
 
-                    />
+                      />
+                    ) : (
+                        <Icon
+                          name='pause'
+                          // name=
+                          type='font-awesome'
+                          color={backcolor}
+                          style={{
+                            paddingLeft: 20,
+                            paddingVertical: 16,
+                          }}
+                          size={25}
+
+                        /> 
+                    )} 
+                   
                   </TouchableOpacity>
                   <TouchableOpacity onPress={() => SkipTo()}
                   // style={{ marginRight: 10 }}
                   >
 
-                    <Icon
-                      name="step-forward"
-                      type='font-awesome'
-                      color='white'
+                    <Feather
+                      name="skip-forward"
+                      // type='font-awesome'
+                      color='#f2f2f2'
                       size={32}
+
                     />
                   </TouchableOpacity>
                 </View>
                 <View style={{ flexDirection: "row" }}>
                   <View style={{ maxWidth: 30, minWidth: 30 }}>
                     {parseInt(volumemusic * 100) <= 0 &&
-                      <Icon
-                        name="volume-off"
-                        type='font-awesome'
+                      <Feather
+                      name="volume-x"
+                        // type='font-awesome'
                         color='#f2f2f2'
                         size={30}
 
                       />
                     }
                     {(parseInt(volumemusic * 100) >= 1 && parseInt(volumemusic * 100) < 75) &&
-                      <Icon
-                        name="volume-down"
-                        type='font-awesome'
+                      <Feather
+                        name="volume-1"
+                        // type='font-awesome'
                         color='#f2f2f2'
                         size={30}
 
                       />
                     }
                     {parseInt(volumemusic * 100) >= 75 &&
-                      <Icon
-                        name="volume-up"
-                        type='font-awesome'
+                      <Feather
+                        name="volume-2"
+                        // type='font-awesome'
                         color='#f2f2f2'
                         size={30}
 
@@ -499,7 +496,7 @@ export default function App({ navigation }) {
                   {/* <Text>{parseInt(volumemusic * 100)}%</Text> */}
                   <Slider
                     style={{ width: "60%", height: 30, marginLeft: 0 }}
-                    value={0.5}
+                    value={volumemusic}
                     minimumValue={0}
                     maximumValue={1}
                     minimumTrackTintColor="white"
@@ -507,7 +504,7 @@ export default function App({ navigation }) {
                     thumbTintColor="white"
                     onValueChange={value => setVolume_Music(value)}
                   />
-
+                
                 </View>
               </View>
 
@@ -544,7 +541,17 @@ const styles = StyleSheet.create({
   btn_close: {
     marginRight: 20,
 
-  }
+  },
+  container_spiner: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgb(46, 46, 46)',
+    zIndex: 1,
+    opacity: 0.6,
+  },
+  spiner: {
+    zIndex: 2,
+  },
 });
 
 
