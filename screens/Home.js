@@ -62,9 +62,9 @@ const Home = ({ navigation }) => {
 
         const db = getDatabase();
         const starCountRef = ref(db, 'listartist/');
-        onValue(starCountRef, (snapshot) => {
+        onValue(starCountRef,async (snapshot) => {
 
-            const data = snapshot.val();
+            const data =await snapshot.val();
             // console.log(data);
             setDataartist(data)
 
@@ -128,7 +128,7 @@ const Home = ({ navigation }) => {
                         showsHorizontalScrollIndicator={false}
                         style={styles.flatlist}
                     />
-                        <Text style={{
+                    <Text style={{
                             textAlign: "left", color: "#ffffff",
                             fontSize: 22, fontWeight: "800", fontFamily: 'Roboto', marginLeft: 25
                         }}>

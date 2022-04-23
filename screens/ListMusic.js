@@ -94,7 +94,7 @@ const ListMusic = ({ route, navigation }) => {
 
             });
 
-            TrackPlayer.add(allmusic);
+        await  TrackPlayer.add(allmusic);
             await TrackPlayer.skip(id);
             await TrackPlayer.play();
         }
@@ -104,9 +104,9 @@ const ListMusic = ({ route, navigation }) => {
         // console.log(nameartist);
         const db = getDatabase();
         const starCountRef = ref(db, 'listmusic/' + nameartist);
-        onValue(starCountRef, (snapshot) => {
+        onValue(starCountRef,async (snapshot) => {
 
-            const data = snapshot.val();
+            const data =await snapshot.val();
 
             setlistmusic(data);
 
@@ -114,9 +114,9 @@ const ListMusic = ({ route, navigation }) => {
 
 
         const starCountRef2 = ref(db, 'allmusic/');
-        onValue(starCountRef2, (snapshot) => {
+        onValue(starCountRef2,async (snapshot) => {
 
-            const data = snapshot.val();
+            const data =await snapshot.val();
             setallmusic(data);;
         });
 

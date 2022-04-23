@@ -376,6 +376,9 @@ export default function App() {
                    
                     onSlidingComplete={async (value) => {
                       // console.log("value =" + value)
+                      if (repeatMode == "off") {
+                        setbtnPlayer("pause");
+                      }
                       await TrackPlayer.seekTo(value);
 
 

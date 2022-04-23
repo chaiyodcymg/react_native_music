@@ -48,7 +48,7 @@ const Login = ({ navigation }) => {
             <Video
 
                 source={require('../image/blackpinkcrop.mp4')}
-                style={StyleSheet.absoluteFillObject}
+                style={[StyleSheet.absoluteFillObject, styles.backgroundVideo]}
                 muted={true}
                 repeat={true}
                 resizeMode='cover'
@@ -173,29 +173,22 @@ const styles = StyleSheet.create({
         fontSize: 19,
         color: 'white',
     },
-    // backgroundVideo: {
-    //     // width: windowWidth,
-    //     // height: "100%",
-    //     // // zIndex:0,
-    //     // position: 'absolute',
-    //     // // top: 0,
-    //     // // // right: 0,
-    //     // // bottom: 0,
-    //     // left: -56,
-    //     // // opacity: 0.3,
-    //     // // zIndex: -100,
-    //     // backgroundColor: "black",
-    //     height: windowHeight,
-    //     // minHeight: '100%',
-    //     position: "absolute",
-    //     top: 0,
-    //     left: 0,
-    //     alignItems: "stretch",
-    //     bottom: 0,
-    //     right: 0
+    backgroundVideo: {
+        // width: windowWidth,
+        // height: "100%",
+        // // zIndex:0,
+        // position: 'absolute',
+        // // top: 0,
+        // // // right: 0,
+        // // bottom: 0,
+        // left: -56,
+        // // opacity: 0.3,
+        // // zIndex: -100,
+        backgroundColor: "black",
+      
 
 
-    // },
+    },
     container_spiner: {
         justifyContent: 'center',
         alignItems: 'center',

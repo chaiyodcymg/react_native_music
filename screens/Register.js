@@ -22,6 +22,7 @@ import LottieView from 'lottie-react-native';
   
     const create_account = () => {
       Keyboard.dismiss()
+
       setLoginPending(true)
         createUserWithEmailAndPassword(authen, email, password)
       .then((authUser) => {
@@ -81,6 +82,7 @@ import LottieView from 'lottie-react-native';
             <Image source={require('../image/music_icon.png')} style={{ width: 180, height: 180 }} />
                   
             <TextInput
+              onSubmitEditing={create_account}
               style={styles.input}
               placeholder="อีเมล"
               type="text"
@@ -88,6 +90,7 @@ import LottieView from 'lottie-react-native';
               onChangeText={(text)=>setEmail(text)}
               placeholderTextColor="white"></TextInput>
             <TextInput
+              onSubmitEditing={create_account}
               style={[styles.input, styles.input2]}
               placeholder="รหัสผ่าน"
               type="password"
@@ -179,7 +182,7 @@ import LottieView from 'lottie-react-native';
     },
     containervideo: {
       // zIndex: 1,
-   
+   backgroundColor:"black"
     },
     containerback: {
       opacity: 0.6,
