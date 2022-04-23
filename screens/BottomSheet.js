@@ -10,12 +10,7 @@ import { PanGestureHandler } from "react-native-gesture-handler";
 import { Portal } from "react-native-paper";
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-import TrackPlayer, {
-    Capability, Event, RepeatMode,
-    State, usePlaybackState, useProgress
-    , useTrackPlayerEvents, getQueue
-} from 'react-native-track-player';
-import Slider from '@react-native-community/slider';
+
 
 
 const BottomSheet = ({ show, onDismiss, enableBackdropDismiss, color, children }) => {
@@ -91,7 +86,7 @@ const BottomSheet = ({ show, onDismiss, enableBackdropDismiss, color, children }
                     <View
                         style={[
                             {
-                                height: 100,
+                                height: 70,
                                 backgroundColor: color,
                             },
                             styles.common,

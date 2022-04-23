@@ -14,7 +14,7 @@ import {
   StatusBar,
   StyleSheet,
   Text,
-  useColorScheme,
+  Dimensions,
   View, Button, TouchableOpacity, Image, Pressable, FlatList
 } from 'react-native';
 import Login from './screens/Login';
@@ -59,7 +59,8 @@ const globalScreenOptions = {
 LogBox.ignoreAllLogs();
 
 
-
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
 
 
 export default function App() {
@@ -105,7 +106,7 @@ export default function App() {
         trackTitle.current = title;
         trackArtwork.current = artwork;
         trackArtist.current = artist;
-        showPlayer.current = true;
+       
  
 
         setbackcolor(color);
@@ -113,7 +114,9 @@ export default function App() {
         setbtnPlayer("pause");
     
         const volume = await TrackPlayer.getVolume();
-       await setVolume_Music(volume)
+        await setVolume_Music(volume)
+        
+        showPlayer.current = true;
     
       } else if (event.type == Event.RemotePlay) {
         setbtnPlayer("pause");
@@ -126,9 +129,9 @@ export default function App() {
 
         // }
         setbtnPlayer('play')
-        console.log('Event.PlaybackQueueEnded fired.');
+        // console.log('Event.PlaybackQueueEnded fired.');
       }
-      // console.log(Event.PlaybackQueueEnded);
+    
     },
   );
 
@@ -140,7 +143,8 @@ export default function App() {
       setUser(authUser);
 
     });
-    // console.log(progress.position);
+    console.log(windowWidth-(windowWidth*10/100));
+    console.log(windowHeight);
   }, []);
 
   const SetShowButtonSheet = () => {
@@ -260,8 +264,8 @@ export default function App() {
                   style={{
                     flexDirection: "row",
                     alignItems: "center",
-                    maxWidth: 365,
-                    minWidth: 365,
+                    maxWidth: windowWidth - (windowWidth * 15 / 100),
+                    minWidth: windowWidth - (windowWidth * 15 / 100),
 
 
                     // backgroundColor: "red",
@@ -289,14 +293,36 @@ export default function App() {
                   onPress={() => PlayBack(playbackState)}
                   style={styles.btn_close}
                 >
-
-                  <Icon
-                    name={btnPlayer}
+    
+                  {/* <Icon
+                    name="play"
                     type='font-awesome'
                     color='white'
                     size={22}
 
-                  />
+                  /> */}
+                  {btnPlayer == 'play' ? (
+                    <Icon
+                      name='play'
+                      // name=
+                      type='font-awesome'
+                      color='white'
+                     
+                      size={22}
+
+                    />
+                  ) : (
+                    <Icon
+                      name='pause'
+                    
+                      type='font-awesome'
+                        color='white'
+                    
+                      size={22}
+
+                    />
+                  )} 
+                  
                 </TouchableOpacity>
 
               </View>
@@ -355,7 +381,7 @@ export default function App() {
               <View style={{ flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
 
                 {/* <View style={{ height:450,}}/> */}
-                <Image source={{ uri: trackArtwork.current }} style={{ width: "90%", height: 350, marginTop: 40, marginBottom: 20, }} />
+                <Image source={{ uri: trackArtwork.current }} style={{ width: "80%", height: "40%", marginTop: 40, marginBottom: 20, }} />
                 <Text style={{ color: "white", fontSize: 20, fontWeight: "800" }}>
                   {trackTitle.current}
                 </Text>

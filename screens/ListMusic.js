@@ -94,7 +94,7 @@ const ListMusic = ({ route, navigation }) => {
 
             });
 
-        await  TrackPlayer.add(allmusic);
+             TrackPlayer.add(allmusic);
             await TrackPlayer.skip(id);
             await TrackPlayer.play();
         }

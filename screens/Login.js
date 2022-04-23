@@ -47,7 +47,7 @@ const Login = ({ navigation }) => {
         <View style={styles.container}>
             <Video
 
-                source={require('../image/blackpinkcrop.mp4')}
+                source={{ uri:"https://firebasestorage.googleapis.com/v0/b/react-music-b52e8.appspot.com/o/background-video%2Fyoungohm2.mp4?alt=media&token=a8a4cdb1-73bf-4ed1-afa9-4ca1ab8945e7"}}
                 style={[StyleSheet.absoluteFillObject, styles.backgroundVideo]}
                 muted={true}
                 repeat={true}
@@ -67,7 +67,7 @@ const Login = ({ navigation }) => {
 
             }
             <StatusBar translucent backgroundColor='transparent' barStyle="light-content" />
-            <View >
+            <KeyboardAvoidingView>
                
                 <TouchableOpacity >
                     <Icon
@@ -75,7 +75,7 @@ const Login = ({ navigation }) => {
                         name='angle-left'
                         type='font-awesome'
                         color='#ffffff'
-                        style={{ marginLeft:-20, marginTop: 60 }}
+                        style={{ marginLeft:0, marginTop: 60 }}
                         size={30}
                         onPress={() => navigation.navigate('Welcome')}
                     />
@@ -101,17 +101,6 @@ const Login = ({ navigation }) => {
                         onChangeText={(text) => setPassword(text)}
                         placeholderTextColor="white"></TextInput>
 
-                    {/* <Button
-                        onPress={signIn}
-                        title="เข้าสู่ระบบ"
-                        titleStyle={styles.titlestyle}
-                        buttonStyle={{
-                            backgroundColor: '#1ed660',
-                            borderRadius: 25,
-                            width: 350,
-                            height: 50,
-                        }}
-                    ></Button> */}
                     <TouchableOpacity onPress={signIn}>
                         <Text style={{
                             color: "black", paddingHorizontal: 10, paddingVertical: 13, backgroundColor: '#1ed660',
@@ -126,18 +115,9 @@ const Login = ({ navigation }) => {
                         }}>สร้างบัญชีใหม่</Text>
                     </TouchableOpacity>
 
-                    {/* <Button onPress={() => navigation.navigate('Register')} title="สร้างบัญชีใหม่"
-                        type="clear"
-                        titleStyle={styles.titlestyle}
-                        buttonStyle={{
-                            width: 320,
-                            height: 50,
-                        }}></Button> */}
                 </View>
-            </View>
+            </KeyboardAvoidingView>
 
-
-            {/* <View style={{ height: 20 }} /> */}
 
         </View>
     )

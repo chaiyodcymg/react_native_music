@@ -62,9 +62,9 @@ const Home = ({ navigation }) => {
 
         const db = getDatabase();
         const starCountRef = ref(db, 'listartist/');
-        onValue(starCountRef,async (snapshot) => {
+        onValue(starCountRef,(snapshot) => {
 
-            const data =await snapshot.val();
+            const data = snapshot.val();
             // console.log(data);
             setDataartist(data)
 
@@ -139,50 +139,7 @@ const Home = ({ navigation }) => {
 
             count++;
         })
-        // items.forEach(item => {
-        //     // console.log(item)
-        //     list.push(
-        //         <View>
-        //             <FlatList
-        //                 horizontal
-        //                 data={item}
-        //                 renderItem={renderItem}
-        //                 showsHorizontalScrollIndicator={false}
-        //                 style={styles.flatlist}
-        //             />
-        //             <Text style={{ textAlign: "left", color: "#ffffff", fontSize: 22, fontWeight: "800", fontFamily: 'Roboto', marginLeft: 25 }}>
-        //                 {listname[count]}
-        //             </Text>
-        //         </View>
-        //     );
-
-        //     count++;
-        // });
-
-
-        // for (const item in items) {
       
-        //     list.push(
-        //         <View>
-        //             <FlatList
-        //                 horizontal
-        //                 data={items[item]}
-        //                 renderItem={renderItem}
-        //                 showsHorizontalScrollIndicator={false}
-        //                 style={styles.flatlist}
-        //             />
-        //             <Text style={{ textAlign: "left", color: "#ffffff", fontSize: 22, fontWeight: "800", fontFamily: 'Roboto', marginLeft: 25 }}>
-        //                 {listname[count]}
-        //             </Text>
-        //         </View>
-        //     );
-
-
-
-
-        //     count++;
-
-        // }
 
         return (
             <View>
@@ -195,15 +152,8 @@ const Home = ({ navigation }) => {
     
     return (
 
-        // <ImageBackground source={require('../image/back-index.png')}
-        //     style={{
-        //         width: '100%',
-        //         height: '100%',
-        //         paddingBottom: 0,
-        //         margin:0
-        //         }}>
         <LinearGradient colors={[colorpage, '#001a09', '#000000']} style={styles.container}>
-            {/* <View style={styles.container}> */}
+       
             {dataartist == null &&
                 <View style={[StyleSheet.absoluteFillObject, styles.container_spiner]}>
 
@@ -253,10 +203,7 @@ const Home = ({ navigation }) => {
 
 
             </ScrollView>
-            {/* </View>  */}
-
-
-            {/* // </ImageBackground> */}
+      
         </LinearGradient >
     )
 }

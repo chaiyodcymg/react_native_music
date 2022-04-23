@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
   },
   slogan: {
     color: 'white',
-    fontSize: 50,
+    fontSize: 30,
     fontWeight: 'bold',
     textAlign: 'center',
     marginTop: '30%',

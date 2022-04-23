@@ -36,10 +36,10 @@ import LottieView from 'lottie-react-native';
     };
     return (
       <View style={styles.container}>
-        <View style={[StyleSheet.absoluteFillObject, styles.containerback]}>
+        <View style={[StyleSheet.absoluteFillObject]}>
         <Video
 
-          source={require('../image/youngohm2.mp4')}
+            source={{ uri:"https://firebasestorage.googleapis.com/v0/b/react-music-b52e8.appspot.com/o/background-video%2Fblackpinkcrop.mp4?alt=media&token=eb2f0943-8a33-4306-84c5-c77fdb6e61a1"}}
             style={[StyleSheet.absoluteFillObject, styles.containervideo]}
           muted={true}
           repeat={true}
@@ -67,7 +67,7 @@ import LottieView from 'lottie-react-native';
 
           }
         <View>
-                <TouchableOpacity style={{ alignItems: "flex-start", marginLeft: -20, marginTop: 50 }}>
+                <TouchableOpacity style={{ alignItems: "flex-start", marginLeft: 0, marginTop: 50 }}>
                     <Icon
 
                         name='angle-left'
@@ -126,7 +126,7 @@ import LottieView from 'lottie-react-native';
               <TouchableOpacity onPress={create_account}>
                   <Text style={{
                       color: "black", paddingHorizontal: 10, paddingVertical: 13, backgroundColor: '#1ed660',
-                      borderRadius: 30, paddingLeft: 108, paddingRight: 108, fontSize: 19, fontWeight:"blod"
+                      borderRadius: 30, paddingLeft: 108, paddingRight: 108, fontSize: 19, fontWeight:"800"
                   }}>สร้างบัญชี</Text>
               </TouchableOpacity>
               
